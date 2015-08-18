@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>surus_sim</name>
+  <name>rmc_simulation</name>
   <version>0.9.0</version>
-  <description>The scipio_simulation package</description>
+  <description>The rmc_simulation package</description>
 
   <maintainer email="krgebis@gmail.com">Krystian-L0g1x</maintainer>
 

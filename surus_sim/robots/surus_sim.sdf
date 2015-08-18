@@ -1,7 +1,7 @@
 <?xml verion='1.0'?>
 <sdf version='1.4'>
   <model name='surus_sim'>
-    <pose>0.5 1 4 0 0 3.14</pose>
+    <pose>0.5 1 5 0 0 3.14</pose>
     <link name='base_link'>
       <pose>0 0 0 0 -0 0</pose>
       <inertial>
@@ -24,7 +24,7 @@
 <!--
             <uri>model://surus_sim/meshes/base_link.STL</uri>
 -->
-            <uri>model://meshes/base_link/base_link.STL</uri>
+            <uri>model://surus_sim/meshes/base_link/base_link.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -33,7 +33,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/base_link/base_link.DAE</uri>
+            <uri>model://surus_sim/meshes/base_link/base_link.DAE</uri>
           </mesh>
         </geometry>
       </visual>
@@ -110,7 +110,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/left_top_link.STL</uri>
+            <uri>model://surus_sim/meshes/left_top_link.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -119,7 +119,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/left_top_link.STL</uri>
+            <uri>model://surus_sim/meshes/left_top_link.STL</uri>
           </mesh>
         </geometry>
       </visual>
@@ -159,7 +159,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_vert_back_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_vert_back_link.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -168,7 +168,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_vert_back_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_vert_back_link.STL</uri>
           </mesh>
         </geometry>
       </visual>
@@ -208,7 +208,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/left_mid_wheel.STL</uri>
+            <uri>model://surus_sim/meshes/left_mid_wheel.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -217,7 +217,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/wheels/all_right_wheels/right_wheel.DAE</uri>
+            <uri>model://surus_sim/meshes/wheels/all_left_wheels/left_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
@@ -257,7 +257,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-	    <uri>model://meshes/right_vert_back_link.STL</uri>
+	    <uri>model://surus_sim/meshes/right_vert_back_link.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -266,7 +266,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_vert_back_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_vert_back_link.STL</uri>
           </mesh>
         </geometry>
       </visual>
@@ -306,7 +306,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/left_front_wheel.STL</uri>
+            <uri>model://surus_sim/meshes/left_mid_wheel.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -315,7 +315,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/wheels/all_right_wheels/right_wheel.DAE</uri>
+            <uri>model://surus_sim/meshes/wheels/all_left_wheels/left_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
@@ -355,7 +355,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/rear_rocker_link.STL</uri>
+            <uri>model://surus_sim/meshes/rear_rocker_link.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -364,7 +364,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/rear_rocker_link.STL</uri>
+            <uri>model://surus_sim/meshes/rear_rocker_link.STL</uri>
           </mesh>
         </geometry>
       </visual>
@@ -404,7 +404,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/rear_left_wheel_link.STL</uri>
+            <uri>model://surus_sim/meshes/left_mid_wheel.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -413,7 +413,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/wheels/all_right_wheels/right_wheel.DAE</uri>
+            <uri>model://surus_sim/meshes/wheels/all_left_wheels/left_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
@@ -453,7 +453,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/rear_right_wheel.STL</uri>
+            <uri>model://surus_sim/meshes/rear_right_wheel.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -462,7 +462,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/wheels/all_right_wheels/right_wheel.DAE</uri>
+            <uri>model://surus_sim/meshes/wheels/all_right_wheels/right_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
@@ -502,7 +502,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_bot_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_bot_link.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -511,7 +511,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_bot_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_bot_link.STL</uri>
           </mesh>
         </geometry>
       </visual>
@@ -551,7 +551,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_top_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_top_link.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -560,7 +560,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_top_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_top_link.STL</uri>
           </mesh>
         </geometry>
       </visual>
@@ -600,7 +600,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_vert_back_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_vert_back_link.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -609,7 +609,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_vert_back_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_vert_back_link.STL</uri>
           </mesh>
         </geometry>
       </visual>
@@ -649,7 +649,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_mid_wheel.STL</uri>
+            <uri>model://surus_sim/meshes/right_mid_wheel.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -658,7 +658,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/wheels/all_right_wheels/right_wheel.DAE</uri>
+            <uri>model://surus_sim/meshes/wheels/all_right_wheels/right_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
@@ -698,7 +698,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_vert_front_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_vert_front_link.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -707,7 +707,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_vert_front_link.STL</uri>
+            <uri>model://surus_sim/meshes/right_vert_front_link.STL</uri>
           </mesh>
         </geometry>
       </visual>
@@ -747,7 +747,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/right_front_wheel.STL</uri>
+            <uri>model://surus_sim/meshes/right_front_wheel.STL</uri>
           </mesh>
         </geometry>
       </collision>
@@ -756,7 +756,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://meshes/wheels/all_right_wheels/right_wheel.DAE</uri>
+            <uri>model://surus_sim/meshes/wheels/all_right_wheels/right_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
