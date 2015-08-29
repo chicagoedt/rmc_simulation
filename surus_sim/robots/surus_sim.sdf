@@ -963,9 +963,11 @@
       </sensor>
     </link>
 
-    <link name='imu_link'>
-    <pose>0.0718557 -0.433574 0.217656 0 0 0</pose>
-       <inertial>
+    <link name='imu'>
+        <turnGravityOff>false</turnGravityOff>
+    <!-- <pose>0.0718557 -0.433574 0.217656 0 0 0</pose> -->
+        <pose>0 0 0 0 0 1.57</pose>
+        <inertial>
           <pose>0 0 0 0 0 0</pose>
           <mass>0.001</mass>
           <inertia>
@@ -977,12 +979,34 @@
               <izz>1e-09</izz>
           </inertia>
         </inertial>
+      <collision name='imu_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+           <box>
+             <size> 0.02 0.05 0.02 </size>
+           </box>
+        </geometry>
+      </collision>
+      <visual name='imu_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+           <box>
+             <size> 0.05 0.05 0.05 </size>
+           </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Red</name>
+          </script>
+        </material>
+      </visual>
     </link>
     <joint name='imu_joint' type='revolute'>
-        <child>imu_link</child>
+        <child>imu</child>
         <parent>base_link</parent>
         <axis>
-            <xyz>0 0 1</xyz>
+            <xyz>0 -1 0</xyz>
             <limit>
                <lower>0</lower>
                <upper>0</upper>
@@ -991,16 +1015,16 @@
     </joint>
 
     <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
-            <robotNamespace>/</robotNamespace>
-            <updateRate>50.0</updateRate>
-            <bodyName>base_link</bodyName>
-            <topicName>imu/data</topicName>
-            <accelDrift>0.00 0.00 0.00</accelDrift>
-            <accelGaussianNoise>0.00 0.00 0.00</accelGaussianNoise>
-            <rateDrift>0.00 0.00 0.00</rateDrift>
-            <rateGaussianNoise>0.00 0.00 0.00 </rateGaussianNoise>
-            <headingDrift>0.00</headingDrift>
-            <headingGaussianNoise>0.00</headingGaussianNoise>
+        <robotNamespace>/</robotNamespace>
+        <updateRate>50.0</updateRate>
+        <bodyName>imu</bodyName>
+        <topicName>imu/data</topicName>
+        <accelDrift>0.004 0.004 0.004</accelDrift>
+        <accelGaussianNoise>0.004 0.004 0.004</accelGaussianNoise>
+        <rateDrift>0.004 0.004 0.004 </rateDrift>
+        <rateGaussianNoise>0.004 0.004 0.004 </rateGaussianNoise>
+        <headingDrift>0.004</headingDrift>
+        <headingGaussianNoise>0.004</headingGaussianNoise>
     </plugin>
 <!--
       <link name='servo_link'>

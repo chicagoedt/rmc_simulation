@@ -13,15 +13,10 @@
     <arg name="world_name" value="$(find rmc_simulation)/surus_sim/worlds/LunArena.world"/>
   </include>
 
-<!--
-  <node ns="stereo_camera" pkg="stereo_image_proc" name="stereo_image_proc" type="stereo_image_proc"/>
--->
-<!-- will leave this out until new igvc robot. 
-  <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_blw" args="0.26746 -0.17757 0.18923 3.0728 -6.245e-17 3.14 base_link back_left_wheel_link" />
-  <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_brw" args="0.26746 0.17757 0.18923 -3.0192 5.55112e-17 -3.14 base_link back_right_wheel_link" />
-  <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_flw" args="-0.26746 -0.17757 0.18923 3.0516 -6.245e-17 3.14 base_link front_left_wheel_link" />
-  <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_frw" args="-0.26746 0.17757 0.18923 -3.1282 5.89806e-17 -3.14 base_link front_right_wheel_link" />
--->
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_imu"    args="0 0 0 0 0 0 base_link imu" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_camera" args="0.0 -0.45 0.47 0 0 -1.57 base_link blackfly_mount_link" />
+
 
   <param name="robot_description" textfile="$(find rmc_simulation)/surus_sim/robots/surus_sim.sdf" />
   <node
@@ -31,6 +26,8 @@
     args="-sdf -param robot_description -model surus_sim"
     output="screen">
   </node>
+
+  <include file="$(find rmc_simulation)/gazebo_config/aruco_markers/multi/multi-boards.launch"/>
 
 </launch>
 
