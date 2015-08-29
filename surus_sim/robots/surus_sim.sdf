@@ -1,7 +1,8 @@
 <?xml verion='1.0'?>
 <sdf version='1.4'>
   <model name='surus_sim'>
-    <pose>0.5 1 5 0 0 3.14</pose>
+    <static>false</static>
+    <pose>0.5 1 2 0 0 3.14</pose>
     <link name='base_link'>
       <pose>0 0 0 0 -0 0</pose>
       <inertial>
@@ -839,18 +840,34 @@
 <!-- PLUGINS -->
 
 
-    <plugin name="hector_6w_diff_controller" filename="libdiffdrive_plugin_6w.so">
+<!--     <plugin name="hector_6w_diff_controller" filename="libdiffdrive_plugin_6w.so">
         <alwaysOn>1</alwaysOn>
-        <updateRate>10.0</updateRate>
+        <updateRate>20.0</updateRate>
         <wheelSeparation>0.5116</wheelSeparation>
         <wheelDiameter>0.2191</wheelDiameter>
-        <torque>35</torque>
+        <torque>0.6</torque>
          <frontLeftJoint>left_front_wheel_joint</frontLeftJoint>
         <frontRightJoint>right_front_wheel_joint</frontRightJoint>
         <midLeftJoint>left_mid_wheel_joint</midLeftJoint>
         <midRightJoint>mid_wheel_joint</midRightJoint>
         <rearLeftJoint>rear_left_wheel_joint</rearLeftJoint>
         <rearRightJoint>rear_right_wheel_joint</rearRightJoint>
+    </plugin> -->
+
+   <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+        <updateRate>20.0</updateRate>
+        <robotNamespace>/</robotNamespace>
+        <leftFrontJoint>left_front_wheel_joint</leftFrontJoint>
+        <rightFrontJoint>right_front_wheel_joint</rightFrontJoint>
+        <leftRearJoint>rear_left_wheel_joint</leftRearJoint>
+        <rightRearJoint>rear_right_wheel_joint</rightRearJoint>
+        <wheelSeparation>0.5116</wheelSeparation>
+        <wheelDiameter>0.2191</wheelDiameter>
+        <robotBaseFrame>base_link</robotBaseFrame>
+        <torque>0.6</torque>
+        <commandTopic>cmd_vel</commandTopic>
+        <odometryTopic>raw_odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
     </plugin>
 
 
@@ -868,7 +885,7 @@
     </joint>
 
     <link name='blackfly_mount_link'>
-      <pose>0.0718557 -0.90 0.525 0 0 -1.57</pose>
+      <pose>0.0 -0.45 0.47 0 0 -1.57</pose>
       <inertial>
         <mass>1e-5</mass>
         <inertia>

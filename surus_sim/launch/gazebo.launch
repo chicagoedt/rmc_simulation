@@ -28,7 +28,7 @@
     name="spawn_model"
     pkg="gazebo_ros"
     type="spawn_model"
-    args="-sdf -param robot_description -model scipio_simulation"
+    args="-sdf -param robot_description -model surus_sim"
     output="screen">
   </node>
 

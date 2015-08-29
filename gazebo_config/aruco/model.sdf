@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
   <model name="Aruco Markers">
+    <pose>0 0 -2.0 0 0 -1.57</pose>
     <static>true</static>
     <link name="marker781">
       <pose>0 0 1 0 0 -1.57</pose>
