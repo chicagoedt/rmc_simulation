@@ -2,19 +2,31 @@
 <sdf version='1.4'>
   <model name='surus_sim'>
     <static>false</static>
-    <pose>0.5 1 2 0 0 3.14</pose>
+    <!-- X is left right -->
+    <!-- Y is forward backward -->
+    <!-- Z is up down -->
+    <pose>1 0.5 0.3 0 0 3.14159</pose>
+<!-- <pose>1 0.5 0.3 0 0 -1.57</pose> -->
     <link name='base_link'>
       <pose>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>9.82193e-08 0.156634 0.148833 0 -0 0</pose>
+        <pose>0 -0.17 0.2 0 0 0</pose>
         <mass>4.8815</mass>
-        <inertia>
+      <!-- <inertia>
           <ixx>0.261849</ixx>
           <ixy>3.50817e-07</ixy>
           <ixz>5.97879e-07</ixz>
           <iyy>0.320855</iyy>
           <iyz>0.0511772</iyz>
           <izz>0.242019</izz>
+        </inertia> -->
+        <inertia>
+          <ixx>0.242019</ixx>
+          <ixy>0.0511772</ixy>
+          <ixz>3.50817e-07</ixz>
+          <iyy>0.261849</iyy>
+          <iyz>5.97879e-07</iyz>
+          <izz>0.320855</izz>
         </inertia>
       </inertial>
       <collision name='base_link_collision'>
@@ -80,6 +92,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='left_bot_joint' type='revolute'>
       <child>left_bot_link</child>
       <parent>base_link</parent>
@@ -129,6 +142,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='left_top_link_joint' type='revolute'>
       <child>left_top_link</child>
       <parent>base_link</parent>
@@ -141,17 +155,19 @@
         <dynamics/>
       </axis>
     </joint>
+
+
     <link name='left_vert_back_link'>
       <pose>-0.206375 0.009525 0.091186 -1.5708 0 1.5708</pose>
       <inertial>
-        <pose>0.118724 -0.0490373 -0.0508879 0 -0 0</pose>
+        <pose>1.31678e-05 0.128452 0.0508879 0 -0 0</pose>
         <mass>0.380721</mass>
         <inertia>
-          <ixx>0.000972882</ixx>
-          <ixy>-0.00059396</ixy>
-          <ixz>-0.000728839</ixz>
-          <iyy>0.00216633</iyy>
-          <iyz>0.000301022</iyz>
+          <ixx>0.00241155</ixx>
+          <ixy>4.3452e-07</ixy>
+          <ixz>9.45521e-08</ixz>
+          <iyy>0.000727663</iyy>
+          <iyz>0.000788556</iyz>
           <izz>0.00174116</izz>
         </inertia>
       </inertial>
@@ -178,6 +194,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='left_vert_back_top_joint' type='revolute'>
       <child>left_vert_back_link</child>
       <parent>left_top_link</parent>
@@ -190,6 +207,8 @@
         <dynamics/>
       </axis>
     </joint>
+
+
     <link name='left_mid_wheel'>
       <pose>-0.232225 0.00965 -0.123952 -1.5708 -0.822922 1.5708</pose>
       <inertial>
@@ -227,6 +246,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='left_mid_wheel_joint' type='revolute'>
       <child>left_mid_wheel</child>
       <parent>left_vert_back_link</parent>
@@ -239,17 +259,20 @@
         <dynamics/>
       </axis>
     </joint>
+
+
+
     <link name='left_vert_front_link'>
       <pose>-0.206375 0.365125 0.091186 -1.5708 0 1.5708</pose>
       <inertial>
-        <pose>-0.118724 0.0490373 -0.0508879 0 -0 0</pose>
+        <pose>1.31678e-05 0.128452 0.0508879 0 -0 0</pose>
         <mass>0.380721</mass>
         <inertia>
-          <ixx>0.000972882</ixx>
-          <ixy>-0.00059396</ixy>
-          <ixz>0.000728839</ixz>
-          <iyy>0.00216633</iyy>
-          <iyz>-0.000301022</iyz>
+          <ixx>0.00241155</ixx>
+          <ixy>4.3452e-07</ixy>
+          <ixz>9.45521e-08</ixz>
+          <iyy>0.000727663</iyy>
+          <iyz>0.000788556</iyz>
           <izz>0.00174116</izz>
         </inertia>
       </inertial>
@@ -276,6 +299,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='left_vert_front_top_joint' type='revolute'>
       <child>left_vert_front_link</child>
       <parent>left_top_link</parent>
@@ -288,15 +312,21 @@
         <dynamics/>
       </axis>
     </joint>
+
+
+
+
+
+
     <link name='left_front_wheel'>
       <pose>-0.232225 0.36525 -0.123952 -1.5708 -3.10862e-15 1.5708</pose>
       <inertial>
-        <pose>2.71474e-11 3.83121e-11 -0.0766077 0 -0 0</pose>
+        <pose>2.71474e-11 3.83121e-11 0.0766077 0 -0 0</pose>
         <mass>1.06273</mass>
         <inertia>
           <ixx>0.0065887</ixx>
-          <ixy>2.96403e-12</ixy>
-          <ixz>-2.67376e-10</ixz>
+          <ixy>-2.96403e-12</ixy>
+          <ixz>2.67376e-10</ixz>
           <iyy>0.0065887</iyy>
           <iyz>1.89768e-10</iyz>
           <izz>0.00854795</izz>
@@ -325,6 +355,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='left_front_wheel_joint' type='revolute'>
       <child>left_front_wheel</child>
       <parent>left_vert_front_link</parent>
@@ -337,6 +368,9 @@
         <dynamics/>
       </axis>
     </joint>
+
+
+
     <link name='rear_rocker_link'>
       <pose>0 -0.311013 0.014986 -1.5708 -5.55112e-17 -1.5708</pose>
       <inertial>
@@ -374,6 +408,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='rear_rocker_joint' type='revolute'>
       <child>rear_rocker_link</child>
       <parent>base_link</parent>
@@ -386,15 +421,19 @@
         <dynamics/>
       </axis>
     </joint>
+
+
+
+
     <link name='rear_left_wheel_link'>
       <pose>-0.22905 -0.330073 -0.123952 -1.5708 -5.55112e-17 1.5708</pose>
       <inertial>
-        <pose>2.71476e-11 3.8312e-11 -0.0766077 0 -0 0</pose>
+        <pose>2.70923e-11 -3.83119e-11 0.0766077 0 -0 0</pose>
         <mass>1.06273</mass>
         <inertia>
           <ixx>0.0065887</ixx>
-          <ixy>2.96403e-12</ixy>
-          <ixz>-2.67376e-10</ixz>
+          <ixy>-2.96403e-12</ixy>
+          <ixz>2.67377e-10</ixz>
           <iyy>0.0065887</iyy>
           <iyz>1.89768e-10</iyz>
           <izz>0.00854795</izz>
@@ -423,6 +462,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='rear_left_wheel_joint' type='revolute'>
       <child>rear_left_wheel_link</child>
       <parent>rear_rocker_link</parent>
@@ -435,6 +475,10 @@
         <dynamics/>
       </axis>
     </joint>
+
+
+
+
     <link name='rear_right_wheel'>
       <pose>0.22905 -0.330327 -0.123952 1.5708 3.27516e-15 1.5708</pose>
       <inertial>
@@ -472,6 +516,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='rear_right_wheel_joint' type='revolute'>
       <child>rear_right_wheel</child>
       <parent>rear_rocker_link</parent>
@@ -484,6 +529,10 @@
         <dynamics/>
       </axis>
     </joint>
+
+
+
+
     <link name='right_bot_link'>
       <pose>0.206375 0.187325 0.014986 1.5708 -5.55112e-17 1.5708</pose>
       <inertial>
@@ -521,6 +570,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='right_bot_joint' type='revolute'>
       <child>right_bot_link</child>
       <parent>base_link</parent>
@@ -533,6 +583,10 @@
         <dynamics/>
       </axis>
     </joint>
+
+
+
+
     <link name='right_top_link'>
       <pose>0.206375 0.187325 0.091186 -1.5708 -5.55112e-17 -1.5708</pose>
       <inertial>
@@ -570,6 +624,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='right_top_joint' type='revolute'>
       <child>right_top_link</child>
       <parent>base_link</parent>
@@ -582,6 +637,10 @@
         <dynamics/>
       </axis>
     </joint>
+
+
+
+
     <link name='right_vert_back_link'>
       <pose>0.206375 0.009525 0.091186 -1.5708 -5.55112e-17 -1.5708</pose>
       <inertial>
@@ -619,6 +678,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='right_vert_top_back_joint' type='revolute'>
       <child>right_vert_back_link</child>
       <parent>right_top_link</parent>
@@ -668,6 +728,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='mid_wheel_joint' type='revolute'>
       <child>right_mid_wheel</child>
       <parent>right_vert_back_link</parent>
@@ -680,6 +741,7 @@
         <dynamics/>
       </axis>
     </joint>
+
     <link name='right_vert_front_link'>
       <pose>0.206375 0.365125 0.091186 -1.5708 -5.55112e-17 -1.5708</pose>
       <inertial>
@@ -717,6 +779,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='right_vert_top_front_joint' type='revolute'>
       <child>right_vert_front_link</child>
       <parent>right_top_link</parent>
@@ -729,6 +792,7 @@
         <dynamics/>
       </axis>
     </joint>
+
     <link name='right_front_wheel'>
       <pose>0.232225 0.365 -0.123952 1.5708 3.27516e-15 1.5708</pose>
       <inertial>
@@ -766,6 +830,7 @@
         <angular>0</angular>
       </velocity_decay>
     </link>
+
     <joint name='right_front_wheel_joint' type='revolute'>
       <child>right_front_wheel</child>
       <parent>right_vert_front_link</parent>
@@ -840,7 +905,7 @@
 <!-- PLUGINS -->
 
 
-<!--     <plugin name="hector_6w_diff_controller" filename="libdiffdrive_plugin_6w.so">
+    <plugin name="hector_6w_diff_controller" filename="libdiffdrive_plugin_6w.so">
         <alwaysOn>1</alwaysOn>
         <updateRate>20.0</updateRate>
         <wheelSeparation>0.5116</wheelSeparation>
@@ -852,9 +917,9 @@
         <midRightJoint>mid_wheel_joint</midRightJoint>
         <rearLeftJoint>rear_left_wheel_joint</rearLeftJoint>
         <rearRightJoint>rear_right_wheel_joint</rearRightJoint>
-    </plugin> -->
+    </plugin>
 
-   <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+<!--    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
         <updateRate>20.0</updateRate>
         <robotNamespace>/</robotNamespace>
         <leftFrontJoint>left_front_wheel_joint</leftFrontJoint>
@@ -868,21 +933,88 @@
         <commandTopic>cmd_vel</commandTopic>
         <odometryTopic>raw_odom</odometryTopic>
         <odometryFrame>odom</odometryFrame>
-    </plugin>
+    </plugin> -->
 
 
-    <joint name="blackfly_mount_joint" type="revolute">
-      <parent>base_link</parent>
-      <child>blackfly_mount_link</child>
-      <pose>0 0 0 0 0 0</pose>
-      <axis>
-        <xyz>-1 0 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0</upper>
-        </limit>
-      </axis>
-    </joint>
+    <link name='blackfly_optical_link'>
+      <pose>0.0 -0.50 0.47 0 0 -1.57</pose>
+      <inertial>
+        <mass>1e-5</mass>
+        <inertia>
+          <ixx>1e-6</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-6</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name='blackfly_optical_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+           <box>
+             <size> 0.05 0.05 0.05 </size>
+           </box>
+        </geometry>
+      </collision>
+      <visual name='blackfly_optical_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+           <box>
+             <size> 0.05 0.05 0.05 </size>
+           </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Black</name>
+          </script>
+        </material>
+      </visual>
+      <velocity_decay>
+         <linear>0</linear>
+         <angular>0</angular>
+      </velocity_decay>
+      <self_collide>0</self_collide>
+
+      <sensor name='blackfly_camera' type='camera'>
+        <update_rate>20</update_rate>
+        <camera name="head">
+          <horizontal_fov>2.09</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>960</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+           </noise>
+          </camera>
+          <pose>0 0 0 0 0 0</pose>
+          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>camera1</cameraName>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <frameName>blackfly_optical_link</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+          </plugin>
+      </sensor>
+    </link>
+
+
 
     <link name='blackfly_mount_link'>
       <pose>0.0 -0.45 0.47 0 0 -1.57</pose>
@@ -919,54 +1051,45 @@
           </script>
         </material>
       </visual>
-      <gravity>1</gravity>
+      <!-- <gravity>1</gravity> -->
       <velocity_decay>
          <linear>0</linear>
          <angular>0</angular>
       </velocity_decay>
       <self_collide>0</self_collide>
-
-      <sensor name='blackfly_camera' type='camera'>
-        <update_rate>20</update_rate>
-        <camera name="head">
-          <horizontal_fov>2.09</horizontal_fov>
-          <image>
-            <width>1280</width>
-            <height>960</height>
-            <format>R8G8B8</format>
-          </image>
-          <clip>
-            <near>0.02</near>
-            <far>300</far>
-          </clip>
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.007</stddev>
-           </noise>
-          </camera>
-          <pose>0 0 0 0 0 0</pose>
-          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-            <alwaysOn>true</alwaysOn>
-            <updateRate>0.0</updateRate>
-            <cameraName>camera1</cameraName>
-            <imageTopicName>image_raw</imageTopicName>
-            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-            <frameName>blackfly_mount_link</frameName>
-            <hackBaseline>0.07</hackBaseline>
-            <distortionK1>0.0</distortionK1>
-            <distortionK2>0.0</distortionK2>
-            <distortionK3>0.0</distortionK3>
-            <distortionT1>0.0</distortionT1>
-            <distortionT2>0.0</distortionT2>
-          </plugin>
-      </sensor>
     </link>
 
+    <joint name="blackfly_mount_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>blackfly_mount_link</child>
+      <pose>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>-1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+      </axis>
+    </joint>
+
+    <joint name="blackfly_optical_joint" type="revolute">
+      <parent>blackfly_mount_link</parent>
+      <child>blackfly_optical_link</child>
+      <pose>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>-1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+      </axis>
+    </joint>
+
+<!--
     <link name='imu'>
         <turnGravityOff>false</turnGravityOff>
-    <!-- <pose>0.0718557 -0.433574 0.217656 0 0 0</pose> -->
-        <pose>0 0 0 0 0 1.57</pose>
+    -- <pose>0.0718557 -0.433574 0.217656 0 0 0</pose> --
+        <pose>0 0 0 0 0 -1.57</pose>
         <inertial>
           <pose>0 0 0 0 0 0</pose>
           <mass>0.001</mass>
@@ -1006,23 +1129,24 @@
         <child>imu</child>
         <parent>base_link</parent>
         <axis>
-            <xyz>0 -1 0</xyz>
+          <use_parent_model_frame>true</use_parent_model_frame>
+--             <xyz>1 0 0</xyz>
             <limit>
                <lower>0</lower>
                <upper>0</upper>
-            </limit>
+            </limit> --
         </axis>
-    </joint>
+    </joint> -->
 
     <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
         <robotNamespace>/</robotNamespace>
         <updateRate>50.0</updateRate>
-        <bodyName>imu</bodyName>
+        <bodyName>blackfly_mount_link</bodyName>
         <topicName>imu/data</topicName>
         <accelDrift>0.004 0.004 0.004</accelDrift>
         <accelGaussianNoise>0.004 0.004 0.004</accelGaussianNoise>
-        <rateDrift>0.004 0.004 0.004 </rateDrift>
-        <rateGaussianNoise>0.004 0.004 0.004 </rateGaussianNoise>
+        <rateDrift>0.004 0.004 0.004</rateDrift>
+        <rateGaussianNoise>0.004 0.004 0.004</rateGaussianNoise>
         <headingDrift>0.004</headingDrift>
         <headingGaussianNoise>0.004</headingGaussianNoise>
     </plugin>

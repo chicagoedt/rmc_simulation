@@ -1,9 +1,10 @@
 <sdf version='1.4'>
   <model name='LunArena2'>
-    <static>true</static>
+    <static>false</static>
+    <pose>2 -3 -2 0 0 0</pose>
     <link name='arena_base_link'>
       <collision name='arena_base_link_collision'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -12,7 +13,7 @@
         </geometry>
       </collision>
       <visual name='arena_base_link_visual'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>

@@ -7,15 +7,18 @@
   <env name="GAZEBO_MODEL_PATH" value="$(find rmc_simulation)"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="$(arg gui)" />
     <arg name="headless" value="$(arg headless)" />
     <arg name="world_name" value="$(find rmc_simulation)/surus_sim/worlds/LunArena.world"/>
   </include>
 
-
-  <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_imu"    args="0 0 0 0 0 0 base_link imu" />
-  <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_camera" args="0.0 -0.45 0.47 0 0 -1.57 base_link blackfly_mount_link" />
+                  <!-- tf2 args:   <x y z YAW PITCH ROLL>  Different from original tf!!! -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_imu"    args="0 0 0 0 0 0 base_link imu" /> -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_blackfly_mount" args="-0.45 0.0 0.47 3.14195 0 0 base_link blackfly_mount_link" />
+<!--   <node pkg="tf" type="static_transform_publisher" name="blackfly_mount_to_optical" args="0.1 0 0 -1.57 0 -1.57 blackfly_mount_link blackfly_optical_link 200" /> -->
+  <node pkg="tf" type="static_transform_publisher" name="blackfly_mount_to_optical" args="0.1 0 0 0 0 0 blackfly_mount_link blackfly_optical_link 200" />
 
 
   <param name="robot_description" textfile="$(find rmc_simulation)/surus_sim/robots/surus_sim.sdf" />
@@ -28,6 +31,11 @@
   </node>
 
   <include file="$(find rmc_simulation)/gazebo_config/aruco_markers/multi/multi-boards.launch"/>
+
+  <include file="$(find rmc_2dnav)/launch/ekf_localization.launch"/>
+
+  <node pkg="rviz" type="rviz" name="rviz" />
+  <node pkg="rqt_robot_steering" type="rqt_robot_steering" name="rqt_robot_steering" />
 
 </launch>
 
