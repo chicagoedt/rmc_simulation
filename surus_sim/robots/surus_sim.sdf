@@ -980,20 +980,20 @@
       <sensor name='blackfly_camera' type='camera'>
         <update_rate>20</update_rate>
         <camera name="head">
-          <horizontal_fov>2.09</horizontal_fov>
+          <horizontal_fov>1.2217</horizontal_fov>
           <image>
-            <width>1280</width>
-            <height>960</height>
+            <width>1624</width>
+            <height>1224</height>
             <format>R8G8B8</format>
           </image>
           <clip>
-            <near>0.02</near>
+            <near>0.01</near>
             <far>300</far>
           </clip>
           <noise>
             <type>gaussian</type>
             <mean>0.0</mean>
-            <stddev>0.007</stddev>
+            <stddev>0.000</stddev>
            </noise>
           </camera>
           <pose>0 0 0 0 0 0</pose>

@@ -3,20 +3,21 @@
   <model name="Aruco Markers">
     <pose>0 0 -2.0 0 0 -1.57</pose>
     <static>true</static>
+
     <link name="marker781">
-      <pose>0 0 1 0 0 -1.57</pose>
+      <pose>0 0 1 3.14159 0 -1.57</pose>
       <visual name="marker781_visual">
         <geometry>
-	  <mesh>
-	    <scale>4.9 4.9 4.9</scale>
-	    <uri>model://gazebo_config/aruco/meshes/artag_01.dae</uri>
-	  </mesh>
+      	  <mesh>
+      	    <scale>4.9 4.9 4.9</scale>
+      	    <uri>model://gazebo_config/aruco/meshes/artag_01.dae</uri>
+      	  </mesh>
         </geometry>
       </visual>
     </link>
 
     <link name="marker904">
-      <pose>0.5 0 1 0 0 -1.57</pose>
+      <pose>0.5 0 1 3.14159 0 -1.57</pose>
       <visual name="marker904_visual">
         <geometry>
           <mesh>
@@ -28,7 +29,7 @@
     </link>
 
     <link name="marker644">
-      <pose>-0.5 0 1 0 0 -1.57</pose>
+      <pose>-0.5 0 1 3.14159 0 -1.57</pose>
       <visual name="marker644_visual">
         <geometry>
           <mesh>
@@ -40,7 +41,7 @@
     </link>
 
     <link name="marker341">
-      <pose>0 0 1.25 0 0 -1.57</pose>
+      <pose>0 0 1.25 3.14159 0 -1.57</pose>
       <visual name="marker341_visual">
         <geometry>
           <mesh>
