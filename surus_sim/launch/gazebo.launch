@@ -2,44 +2,38 @@
 
 <launch>
 
-  <arg name="gui" default="true" />
-  <arg name="headless" default="false" />
+    <arg name="gui"       default="true" />
+    <arg name="headless"  default="false" />
+    <arg name="rviz"      default="true" />
+    <arg name="rqt"       default="false" />
 
-  <env name="GAZEBO_MODEL_PATH" value="$(find rmc_simulation)"/>
-
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="true"/>
-    <arg name="gui" value="$(arg gui)" />
-    <arg name="headless" value="$(arg headless)" />
-    <arg name="world_name" value="$(find rmc_simulation)/surus_sim/worlds/LunArena.world"/>
-  </include>
-
-                  <!-- tf2 args:   <x y z YAW PITCH ROLL>  Different from original tf!!! -->
-  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_imu"    args="0 0 0 0 0 0 base_link imu" /> -->
-<!--   <node pkg="tf2_ros" type="static_transform_publisher" name="baselink_to_blackfly_mount" args="-0.45 0.0 0.47 3.14195 0 0 base_link blackfly_mount_link" /> -->
-  <node pkg="tf" type="static_transform_publisher" name="baselink_to_blackfly_mount" args="-0.45 0.0 0.47 3.14195 0 0 base_link blackfly_mount_link 25" />
-  <node pkg="tf" type="static_transform_publisher" name="blackfly_mount_to_optical" args="0.1 0 0 -1.57 0 -1.57 blackfly_mount_link blackfly_optical_link 25" />
-  <!-- <node pkg="tf" type="static_transform_publisher" name="blackfly_mount_to_optical" args="0.1 0 0 0 0 0 blackfly_mount_link blackfly_optical_link 200" /> -->
-<!--   <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_aruco" args="-0.5 0 0 0 0 0 map blackfly_mount_link" /> -->
+    <env name="GAZEBO_MODEL_PATH" value="$(find rmc_simulation)"/>
 
 
-  <param name="robot_description" textfile="$(find rmc_simulation)/surus_sim/robots/surus_sim.sdf" />
-  <node
-    name="spawn_model"
-    pkg="gazebo_ros"
-    type="spawn_model"
-    args="-sdf -param robot_description -model surus_sim"
-    output="screen">
-  </node>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="paused" value="false"/>
+      <arg name="use_sim_time" value="true"/>
+      <arg name="gui" value="$(arg gui)" />
+      <arg name="headless" value="$(arg headless)" />
+      <arg name="world_name" value="$(find rmc_simulation)/surus_sim/worlds/LunArena.world"/>
+    </include>
 
-  <include file="$(find rmc_2dnav)/launch/ekf_localization_1.launch"/> <!-- Only IMU -->
-  <include file="$(find rmc_2dnav)/launch/ekf_localization_2.launch"/> <!-- EKF_1 output and ar pose -->
 
-<!--   <node pkg="rviz" type="rviz" name="rviz" />
-  <node pkg="rqt_robot_steering" type="rqt_robot_steering" name="rqt_robot_steering" /> -->
+    <param name="robot_description" textfile="$(find rmc_simulation)/surus_sim/robots/surus_sim.sdf" />
+    <node
+      name="spawn_model"
+      pkg="gazebo_ros"
+      type="spawn_model"
+      args="-sdf -param robot_description -model surus_sim"
+      output="screen">
+    </node>
 
-  <include file="$(find rmc_simulation)/gazebo_config/aruco_markers/multi/multi-boards.launch"/>
+
+    <include file="$(find rmc_simulation)/gazebo_config/aruco_markers/multi/multi-boards.launch"/>
+    <include file="$(find rmc_2dnav)/launch/control.launch" />
+
+    <node pkg="rviz" type="rviz" name="rviz" if="$(arg rviz)"/>
+    <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" if="$(arg rqt)"/>
 
 </launch>
 
