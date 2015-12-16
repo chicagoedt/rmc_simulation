@@ -7,15 +7,15 @@
     <include>
       <uri>model://sun</uri>
     </include>
-<!--     <include>
+    <include>
       <uri>model://LunArena2</uri>
       <name>LunArena2</name>
-      <pose>2 -3 -2 0 0 0</pose>
-    </include> -->
+      <pose>1.54 -5.45 -0.3 0 0 0</pose>
+    </include>
     <include>
-      <uri>model://gazebo_config/aruco</uri>
-      <name>Aruco Markers</name>
-      <pose>0.48 2 -0.5 0 0 0</pose>
+      <uri>model://gazebo_config/aruco_19cm</uri>
+      <name>aruco_19cm</name>
+      <pose>0 0 1.75 3.14159 -1.57 -1.57</pose>
     </include>
 <!--     <include>
       <uri>model://aruco</uri>

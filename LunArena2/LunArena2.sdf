@@ -1,6 +1,6 @@
 <sdf version='1.4'>
   <model name='LunArena2'>
-    <static>false</static>
+    <static>true</static>
     <pose>2 -3 -2 0 0 0</pose>
     <link name='arena_base_link'>
       <collision name='arena_base_link_collision'>
