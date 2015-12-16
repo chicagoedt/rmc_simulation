@@ -5,7 +5,7 @@
     <!-- X is left right -->
     <!-- Y is forward backward -->
     <!-- Z is up down -->
-    <pose>1 0.5 0.3 0 0 3.14159</pose>
+    <pose>1.2 -1.3 1.5 0 0 3.14159</pose>
 <!-- <pose>1 0.5 0.3 0 0 -1.57</pose> -->
     <link name='base_link'>
       <pose>0 0 0 0 -0 0</pose>
@@ -910,7 +910,8 @@
         <updateRate>20.0</updateRate>
         <wheelSeparation>0.5116</wheelSeparation>
         <wheelDiameter>0.2191</wheelDiameter>
-        <torque>0.6</torque>
+        <!-- <torque>0.6</torque> -->
+        <torque>20</torque>
          <frontLeftJoint>left_front_wheel_joint</frontLeftJoint>
         <frontRightJoint>right_front_wheel_joint</frontRightJoint>
         <midLeftJoint>left_mid_wheel_joint</midLeftJoint>
@@ -934,7 +935,6 @@
         <odometryTopic>raw_odom</odometryTopic>
         <odometryFrame>odom</odometryFrame>
     </plugin> -->
-
 
     <link name='blackfly_optical_link'>
       <pose>0.0 -0.50 0.47 0 0 -1.57</pose>
@@ -1000,10 +1000,10 @@
           <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
             <alwaysOn>true</alwaysOn>
             <updateRate>0.0</updateRate>
-            <cameraName>camera1</cameraName>
+            <cameraName>camera</cameraName>
             <imageTopicName>image_raw</imageTopicName>
             <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-            <frameName>blackfly_optical_link</frameName>
+            <frameName>blackfly_mount_link</frameName>
             <hackBaseline>0.07</hackBaseline>
             <distortionK1>0.0</distortionK1>
             <distortionK2>0.0</distortionK2>
@@ -1085,28 +1085,26 @@
       </axis>
     </joint>
 
-<!--
     <link name='imu'>
-        <turnGravityOff>false</turnGravityOff>
-    -- <pose>0.0718557 -0.433574 0.217656 0 0 0</pose> --
-        <pose>0 0 0 0 0 -1.57</pose>
+        <!-- <pose>0.0718557 -0.433574 0.217656 0 0 0</pose> OLD ONE-->
+        <pose>0 0.5 0.1 0 0 1.57</pose>
         <inertial>
           <pose>0 0 0 0 0 0</pose>
-          <mass>0.001</mass>
+          <mass>1e-5</mass>
           <inertia>
-              <ixx>1e-09</ixx>
-              <ixy>0</ixy>
-              <ixz>0</ixz>
-              <iyy>1e-09</iyy>
-              <iyz>0</iyz>
-              <izz>1e-09</izz>
+            <ixx>1e-6</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1e-6</iyy>
+            <iyz>0.0</iyz>
+            <izz>1e-6</izz>
           </inertia>
         </inertial>
       <collision name='imu_collision'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
            <box>
-             <size> 0.02 0.05 0.02 </size>
+             <size> 0.07 0.05 0.03 </size>
            </box>
         </geometry>
       </collision>
@@ -1114,7 +1112,7 @@
         <pose>0 0 0 0 0 0</pose>
         <geometry>
            <box>
-             <size> 0.05 0.05 0.05 </size>
+             <size> 0.07 0.05 0.03 </size>
            </box>
         </geometry>
         <material>
@@ -1124,31 +1122,63 @@
           </script>
         </material>
       </visual>
+      <visual name='imu_visual_forward_point'>
+        <pose>0.03 0 0.03 0 0 0</pose>
+        <geometry>
+           <box>
+             <size> 0.02 0.02 0.02 </size>
+           </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Black</name>
+          </script>
+        </material>
+      </visual>
     </link>
-    <joint name='imu_joint' type='revolute'>
-        <child>imu</child>
+<!--
+    <link name='imu_link'/>
+
+    <joint name='imu_link_base_link_joint' type='revolute'>
+        <child>imu_link</child>
         <parent>base_link</parent>
+	<pose>0 0 0 0 0 1.57</pose>
         <axis>
-          <use_parent_model_frame>true</use_parent_model_frame>
---             <xyz>1 0 0</xyz>
+             <xyz>0 0 1</xyz>
             <limit>
                <lower>0</lower>
                <upper>0</upper>
-            </limit> --
+            </limit>
         </axis>
-    </joint> -->
+    </joint> 
+-->
+    <joint name='imu_joint' type='revolute'>
+        <child>imu</child>
+        <parent>base_link</parent>
+	<pose>0 0 0 0 0 1.57</pose>
+        <axis>
+             <xyz>0 0 1</xyz>
+            <limit>
+               <lower>0</lower>
+               <upper>0</upper>
+            </limit>
+        </axis>
+    </joint> 
 
     <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
         <robotNamespace>/</robotNamespace>
         <updateRate>50.0</updateRate>
-        <bodyName>blackfly_mount_link</bodyName>
+        <!-- <bodyName>blackfly_mount_link</bodyName> -->
+        <bodyName>imu</bodyName>
         <topicName>imu/data</topicName>
-        <accelDrift>0.00005 0.00005 0.00005</accelDrift>
-        <accelGaussianNoise>0.00005 0.00005 0.00005</accelGaussianNoise>
-        <rateDrift>0.00005 0.00005 0.00005</rateDrift>
-        <rateGaussianNoise>0.00005 0.00005 0.00005</rateGaussianNoise>
-        <headingDrift>0.00005</headingDrift>
-        <headingGaussianNoise>0.00005</headingGaussianNoise>
+	<rpyOffset>0 0 0</rpyOffset>
+        <accelDrift>0.0000005 0.0000005 0.0000005</accelDrift>
+        <accelGaussianNoise>0.0000005 0.0000005 0.0000005</accelGaussianNoise>
+        <rateDrift>0 0 0</rateDrift>
+        <rateGaussianNoise>0.0000005 0.0000005 0.0000005</rateGaussianNoise>
+        <headingDrift>0.0000005</headingDrift>
+        <headingGaussianNoise>0.0000005</headingGaussianNoise>
     </plugin>
 <!--
       <link name='servo_link'>
@@ -1283,7 +1313,6 @@
     <updateRate>30.0</updateRate>
   </plugin>
 -->
-
 
   </model>
 </sdf>
