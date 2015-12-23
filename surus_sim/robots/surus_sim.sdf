@@ -140,14 +140,14 @@
     <link name='left_bot_actuator_link'>
       <pose>-0.22342 0.22479 0.166067 -4.76034e-15 -0.815499 6.53832e-15</pose>
       <inertial>
-        <pose>0.125725 -2.22045e-16 0.0156626 0 -0 0</pose>
+        <pose>0.125725 -1.11022e-16 0.0156626 0 -0 0</pose>
         <mass>0.310659</mass>
         <inertia>
           <ixx>0.000171136</ixx>
-          <ixy>4.58211e-18</ixy>
+          <ixy>4.58714e-18</ixy>
           <ixz>-0.000505501</ixz>
           <iyy>0.00791442</iyy>
-          <iyz>-1.04215e-18</iyz>
+          <iyz>-1.03973e-18</iyz>
           <izz>0.00780787</izz>
         </inertia>
       </inertial>
@@ -175,7 +175,92 @@
       </velocity_decay>
     </link>
 
-
+    <link name='right_top_actuator_link'>
+      <pose>0.159636 -0.23964 0.572911 -4.9262e-15 -0.8155 6.7662e-15</pose>
+      <inertial>
+        <pose>-0.255752 0.0148463 1.43317e-09 0 -0 0</pose>
+        <mass>0.132261</mass>
+        <inertia>
+          <ixx>5.36519e-06</ixx>
+          <ixy>2.2613e-11</ixy>
+          <ixz>4.07087e-11</ixz>
+          <iyy>0.00312813</iyy>
+          <iyz>3.59323e-13</iyz>
+          <izz>0.00312812</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_top_actuator_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://surus_sim/meshes/right_top_actuator_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_top_actuator_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://surus_sim/meshes/right_top_actuator_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <velocity_decay>
+        <linear>0</linear>
+        <angular>0</angular>
+      </velocity_decay>
+    </link>
+    <joint name='right_top_actuator_joint' type='revolute'>
+      <child>right_top_actuator_link</child>
+      <parent>Upper_link</parent>
+      <axis>
+        <xyz>3.17959e-15 -1 3.37693e-15</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics/>
+      </axis>
+    </joint>
+    <link name='right_bot_actuator_link'>
+      <pose>-0.223424 -0.224794 0.166066 -4.9262e-15 -0.8155 6.7662e-15</pose>
+      <inertial>
+        <pose>0.125725 -2.22045e-16 0.0156626 0 -0 0</pose>
+        <mass>0.310659</mass>
+        <inertia>
+          <ixx>0.000171136</ixx>
+          <ixy>4.92663e-18</ixy>
+          <ixz>-0.000505501</ixz>
+          <iyy>0.00791442</iyy>
+          <iyz>-1.08263e-18</iyz>
+          <izz>0.00780787</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_bot_actuator_link_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://surus_sim/meshes/right_bot_actuator_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_bot_actuator_link_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://surus_sim/meshes/right_bot_actuator_link.STL</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <velocity_decay>
+        <linear>0</linear>
+        <angular>0</angular>
+      </velocity_decay>
+    </link>
 
     <link name='left_bot_link'>
       <pose>0.178622 0.220653 0.138937 0 -0 0</pose>
@@ -278,14 +363,14 @@
     <link name='left_mid_wheel_link'>
       <pose>0.000821979 0.354472 -8.65793e-07 0 -0 0</pose>
       <inertial>
-        <pose>-3.88578e-16 -0.0425331 3.33067e-16 0 -0 0</pose>
+        <pose>-4.16334e-16 -0.0425331 1.11022e-16 0 -0 0</pose>
         <mass>0.828511</mass>
         <inertia>
           <ixx>0.00513965</ixx>
-          <ixy>-5.24529e-19</ixy>
-          <ixz>-1.57473e-18</ixz>
+          <ixy>-1.08088e-18</ixy>
+          <ixz>-1.58047e-18</ixz>
           <iyy>0.00677496</iyy>
-          <iyz>4.1432e-17</iyz>
+          <iyz>4.25447e-17</iyz>
           <izz>0.00513965</izz>
         </inertia>
       </inertial>
@@ -376,14 +461,14 @@
     <link name='left_front_wheel_link'>
       <pose>0.356879 0.354453 9.99201e-16 0 -0 0</pose>
       <inertial>
-        <pose>-2.55351e-15 -0.0425331 2.22045e-16 0 -0 0</pose>
+        <pose>-2.66454e-15 -0.0425331 2.22045e-16 0 -0 0</pose>
         <mass>0.828511</mass>
         <inertia>
           <ixx>0.00513965</ixx>
           <ixy>-5.52186e-17</ixy>
-          <ixz>-1.55653e-18</ixz>
+          <ixz>-1.53794e-18</ixz>
           <iyy>0.00677496</iyy>
-          <iyz>4.19429e-17</iyz>
+          <iyz>3.97175e-17</iyz>
           <izz>0.00513965</izz>
         </inertia>
       </inertial>
@@ -724,7 +809,7 @@
         <inertia>
           <ixx>0.00513965</ixx>
           <ixy>-7.37519e-18</ixy>
-          <ixz>1.6758e-18</ixz>
+          <ixz>1.6616e-18</ixz>
           <iyy>0.00677496</iyy>
           <iyz>-5.16417e-17</iyz>
           <izz>0.00513965</izz>
@@ -822,7 +907,7 @@
         <inertia>
           <ixx>0.00513965</ixx>
           <ixy>-3.5509e-17</ixy>
-          <ixz>-1.12221e-18</ixz>
+          <ixz>-1.11633e-18</ixz>
           <iyy>0.00677496</iyy>
           <iyz>-2.97655e-17</iyz>
           <izz>0.00513965</izz>
@@ -914,6 +999,23 @@
     </joint>
 
 
+<!-- prismatic joints for left and right actuators -->
+
+    <joint name='right_mid_actuator_joint' type='prismatic'>
+      <child>right_bot_actuator_link</child>
+      <parent>right_top_actuator_link</parent>
+      <axis>
+        <xyz>-0.685504 -4.63826e-15 -0.728068</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0.4572</upper>
+          <effort>100</effort>
+          <velocity>0.1</velocity>
+        </limit>
+        <dynamics/>
+      </axis>
+    </joint>
+
     <joint name='left_mid_actuator_joint' type='prismatic'>
       <child>left_bot_actuator_link</child>
       <parent>left_top_actuator_link</parent>
@@ -929,6 +1031,8 @@
       </axis>
     </joint>
 
+<!-- revolute joints for left and right actuator attachment back to base_link -->
+
     <joint name='left_actuator_bot_joint' type='revolute'>
       <child>base_link</child>
       <parent>left_bot_actuator_link</parent>
@@ -943,6 +1047,21 @@
       </axis>
     </joint>
 
+    <joint name='right_actuator_bot_joint' type='revolute'>
+      <child>base_link</child>
+      <parent>right_bot_actuator_link</parent>
+      <pose>-0.250185 -0.21589 0.138937 0 -0 0</pose>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics/>
+      </axis>
+    </joint>
+
+<!-- Four bar linkage manual joints to complete graph stucture as urdf exporter wont handle graph models -->
 
     <joint name='left_front_top_vert_joint' type='revolute'>
       <child>left_front_bot_vert_link</child>
@@ -1000,23 +1119,9 @@
       </axis>
     </joint>
 
-<!-- actuator prismatic joints -->
-<!--
-    <joint name='left_actuator_mid_joint' type='prismatic'>
-      <child>left_actuator_shaft_link</child>
-      <parent>left_actuator_pivot_link</parent>
-      <axis>
-        <xyz>0 0 1</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0.1</upper>
-          <effort>100</effort>
-          <velocity>0.2</velocity>
-        </limit>
-        <dynamics/>
-      </axis>
-    </joint>
--->
+<!-- End of manually entered joints -->
+
+
 
 <!-- Plugins -->
 
