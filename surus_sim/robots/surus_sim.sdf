@@ -25,15 +25,17 @@
           </mesh>
         </geometry>
       </collision>
+
       <visual name='base_link_visual'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>-0.009 0 0.12395 0 0 -1.57</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://surus_sim/meshes/base_link.STL</uri>
+            <uri>model://surus_sim/meshes/visual_meshes/base_link/base_link.DAE</uri>
           </mesh>
         </geometry>
       </visual>
+
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -383,15 +385,17 @@
           </mesh>
         </geometry>
       </collision>
+
       <visual name='left_mid_wheel_link_visual'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 -0.127 0 -1.57 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://surus_sim/meshes/left_mid_wheel_link.STL</uri>
+            <uri>model://surus_sim/meshes/visual_meshes/left_wheels/left_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
+
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -481,15 +485,17 @@
           </mesh>
         </geometry>
       </collision>
+
       <visual name='left_front_wheel_link_visual'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 -0.127 0 -1.57 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://surus_sim/meshes/left_front_wheel_link.STL</uri>
+            <uri>model://surus_sim/meshes/visual_meshes/left_wheels/left_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
+
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -628,6 +634,8 @@
           </mesh>
         </geometry>
       </collision>
+
+      <!--
       <visual name='bl_wheel_link_visual'>
         <pose>0 0 0 0 -0 0</pose>
         <geometry>
@@ -636,7 +644,17 @@
             <uri>model://surus_sim/meshes/bl_wheel_link.STL</uri>
           </mesh>
         </geometry>
+      </visual> -->
+      <visual name='bl_wheel_link_visual'>
+        <pose>0 -0.127 0 -1.57 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://surus_sim/meshes/visual_meshes/left_wheels/left_wheel.DAE</uri>
+          </mesh>
+        </geometry>
       </visual>
+
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -677,15 +695,17 @@
           </mesh>
         </geometry>
       </collision>
+
       <visual name='br_wheel_link_visual'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0.127 0 1.57 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://surus_sim/meshes/br_wheel_link.STL</uri>
+            <uri>model://surus_sim/meshes/visual_meshes/left_wheels/left_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
+
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -824,15 +844,17 @@
           </mesh>
         </geometry>
       </collision>
+
       <visual name='right_middle_wheel_link_visual'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0.127 0 1.57 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://surus_sim/meshes/right_middle_wheel_link.STL</uri>
+            <uri>model://surus_sim/meshes/visual_meshes/left_wheels/left_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
+
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
@@ -922,15 +944,17 @@
           </mesh>
         </geometry>
       </collision>
+
       <visual name='right_front_wheel_link_visual'>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0.127 0 1.57 0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://surus_sim/meshes/right_front_wheel_link.STL</uri>
+            <uri>model://surus_sim/meshes/visual_meshes/left_wheels/left_wheel.DAE</uri>
           </mesh>
         </geometry>
       </visual>
+
       <velocity_decay>
         <linear>0</linear>
         <angular>0</angular>
