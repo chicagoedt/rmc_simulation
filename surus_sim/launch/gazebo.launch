@@ -26,8 +26,9 @@
       args="-sdf -param robot_description -model surus_sim "
       output="screen">
     </node>
-
+<!--
     <include file="$(find rmc_2dnav)/launch/ar_sys_19cm.launch" />
+-->
     <include file="$(find rmc_2dnav)/launch/static_transforms.launch" />
 <!--
     <include file="$(find rmc_2dnav)/launch/ekf_localization_1_test.launch" />
