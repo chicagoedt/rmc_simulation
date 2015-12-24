@@ -10,13 +10,15 @@
     <include>
       <uri>model://LunArena2</uri>
       <name>LunArena2</name>
-      <pose>1.54 -5.45 -0.3 0 0 0</pose>
+      <pose>4.6094 1.6869 -1.39564 0 0 1.57</pose>
     </include>
+<!--
     <include>
       <uri>model://gazebo_config/aruco_19cm</uri>
       <name>aruco_19cm</name>
       <pose>0 0 1.75 3.14159 -1.57 -1.57</pose>
     </include>
+-->
 <!--     <include>
       <uri>model://aruco</uri>
       <name>Aruco Markers</name>
