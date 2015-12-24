@@ -1391,7 +1391,7 @@
 
 
     <link name='kinect_mount_link'>
-      <pose>-0.313685 0 0.40 0.4 0 -1.57</pose>
+      <pose>-0.313685 0 0.40 0.8 0 -1.57</pose>
       <inertial>
         <mass>1e-5</mass>
         <inertia>
