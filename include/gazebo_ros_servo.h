@@ -46,9 +46,24 @@ namespace gazebo
       physics::JointPtr _servoJoint;
 
       common::Time pastTime;
-      float timeInc;
+      double timeInc;
 
-      const float frequencyUpdate = 1;
+      double _frequencyUpdate;
+
+      std::string _cameraFrameId;
+      std::string _robotFrameId;
+
+      std::string _cameraJointName;
+
+      double _rotatingVelocity;
+
+      double _maxForce;
+
+      gazebo::math::Angle _jointUpperLimit;
+      gazebo::math::Angle _jointLowerLimit;
+
+      bool  _leftLimitReached;
+      bool  _rightLimitReached;
 
    };
 
