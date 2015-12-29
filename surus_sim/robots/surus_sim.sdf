@@ -1163,9 +1163,63 @@
         <rearLeftJoint>bl_wheel_joint</rearLeftJoint>
         <rearRightJoint>br_wheel_joint</rearRightJoint>
     </plugin>
-<!--
+
+
+
+<!-- end of blackfly camera -->
+
+    <link name='blackfly_mount_link'>
+      <pose>-0.45 -0.223828 0.541527 0 0 3.14159</pose>
+      <inertial>
+        <mass>1e-5</mass>
+        <inertia>
+          <ixx>1e-6</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-6</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name='blackfly_mount_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+           <box>
+             <size> 0.05 0.05 0.05 </size>
+           </box>
+        </geometry>
+      </collision>
+      <visual name='blackfly_mount_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+           <box>
+             <size> 0.05 0.05 0.05 </size>
+           </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Black</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="blackfly_mount_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>blackfly_mount_link</child>
+      <pose>0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+      </axis>
+    </joint>
+
     <link name='blackfly_optical_link'>
-      <pose>0.0 -0.50 0.47 0 0 -1.57</pose>
+      <pose>-0.475 -0.223828 0.541527 0 0 3.14159</pose>
       <inertial>
         <mass>1e-5</mass>
         <inertia>
@@ -1181,7 +1235,7 @@
         <pose>0 0 0 0 0 0</pose>
         <geometry>
            <box>
-             <size> 0.05 0.05 0.05 </size>
+             <size> 0.025 0.025 0.025 </size>
            </box>
         </geometry>
       </collision>
@@ -1189,13 +1243,13 @@
         <pose>0 0 0 0 0 0</pose>
         <geometry>
            <box>
-             <size> 0.05 0.05 0.05 </size>
+             <size> 0.025 0.025 0.025 </size>
            </box>
         </geometry>
         <material>
           <script>
             <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Black</name>
+            <name>Gazebo/Red</name>
           </script>
         </material>
       </visual>
@@ -1228,7 +1282,7 @@
           <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
             <alwaysOn>true</alwaysOn>
             <updateRate>0.0</updateRate>
-            <cameraName>camera</cameraName>
+            <cameraName>blackfly</cameraName>
             <imageTopicName>image_raw</imageTopicName>
             <cameraInfoTopicName>camera_info</cameraInfoTopicName>
             <frameName>blackfly_mount_link</frameName>
@@ -1242,74 +1296,23 @@
       </sensor>
     </link>
 
-    <link name='blackfly_mount_link'>
-      <pose>0.0 -0.45 0.47 0 0 -1.57</pose>
-      <inertial>
-        <mass>1e-5</mass>
-        <inertia>
-          <ixx>1e-6</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1e-6</iyy>
-          <iyz>0.0</iyz>
-          <izz>1e-6</izz>
-        </inertia>
-      </inertial>
-      <collision name='blackfly_mount_link_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-           <box>
-             <size> 0.05 0.05 0.05 </size>
-           </box>
-        </geometry>
-      </collision>
-      <visual name='blackfly_mount_link_visual'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-           <box>
-             <size> 0.05 0.05 0.05 </size>
-           </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Red</name>
-          </script>
-        </material>
-      </visual>
-      <velocity_decay>
-         <linear>0</linear>
-         <angular>0</angular>
-      </velocity_decay>
-      <self_collide>0</self_collide>
-    </link>
-
-    <joint name="blackfly_mount_joint" type="revolute">
-      <parent>base_link</parent>
-      <child>blackfly_mount_link</child>
-      <pose>0 0 0 0 0 0</pose>
-      <axis>
-        <xyz>-1 0 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0</upper>
-        </limit>
-      </axis>
-    </joint>
-
     <joint name="blackfly_optical_joint" type="revolute">
       <parent>blackfly_mount_link</parent>
       <child>blackfly_optical_link</child>
       <pose>0 0 0 0 0 0</pose>
       <axis>
-        <xyz>-1 0 0</xyz>
+        <xyz>0 0 1</xyz>
         <limit>
           <lower>0</lower>
           <upper>0</upper>
         </limit>
       </axis>
     </joint>
--->
+
+<!-- end of blackfly camera -->
+
+
+
     <link name='imu'>
       <pose>0 0 0.15 0 0 0</pose>
       <inertial>

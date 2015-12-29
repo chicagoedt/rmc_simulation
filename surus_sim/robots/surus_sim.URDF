@@ -999,7 +999,8 @@
       link="left_bot_actuator_link" />
     <axis
       xyz="-1 0 0" />
-    <limit effort="100.0" lower="0" upper="0.4572" velocity="0.1"/>
+    <!-- <limit effort="100.0" lower="0" upper="0.4572" velocity="0.1"/> -->
+    <limit effort="100.0" lower="0" upper="1.4" velocity="0.2"/>
   </joint>
 
     <transmission name="tran1">
@@ -1129,6 +1130,7 @@
       link="right_bot_actuator_link" />
     <axis
       xyz="-1 0 0" />
-    <limit effort="100.0" lower="0" upper="0.4572" velocity="0.1"/>
+    <!-- <limit effort="100.0" lower="0" upper="0.4572" velocity="0.1"/> -->
+    <limit effort="100.0" lower="0" upper="1.4" velocity="0.2"/>
   </joint>
 </robot>
