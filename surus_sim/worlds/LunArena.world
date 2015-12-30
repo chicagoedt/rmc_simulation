@@ -18,10 +18,12 @@
       <pose>-0.9214 0.165856 0.649386 -1.57 -1.57 -1.57</pose>
     </include>
     <!-- Just to cover the bad aruco marker made with LunArena -->
+<!--
     <include>
       <uri>model://gazebo_config/aruco_19cm</uri>
       <name>aruco_19cm</name>
       <pose>-0.45713 0.165856 0.37444 1.57 -1.57 -1.57</pose>
     </include>
+-->
   </world>
 </sdf>

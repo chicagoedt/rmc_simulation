@@ -8,7 +8,7 @@ GZ_REGISTER_MODEL_PLUGIN(GazeboRosServo);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constructor
-GazeboRosServo::GazeboRosServo(): _leftLimitReached(false), _rightLimitReached(false)
+GazeboRosServo::GazeboRosServo(): _leftLimitReached(false), _rightLimitReached(false), _donePanning(true)
 {
 }
 
@@ -16,12 +16,10 @@ GazeboRosServo::GazeboRosServo(): _leftLimitReached(false), _rightLimitReached(f
 // Destructor
 GazeboRosServo::~GazeboRosServo()
 {
-	if(rosnode_)
-		delete rosnode_;
-
 	if(transform_listener_)
 		delete transform_listener_;
 
+	this->_server->shutdown();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -97,10 +95,14 @@ void GazeboRosServo::Load( physics::ModelPtr _model, sdf::ElementPtr _sdf )
     }
 
 
-  	this->rosnode_ = new ros::NodeHandle();
+  	//this->_nh = new ros::NodeHandle();
 
   	transform_listener_ = new tf::TransformListener();
   	transform_listener_->setExtrapolationLimit(ros::Duration(1.0));
+
+  	this->_server = new actionlib::SimpleActionServer<rmc_simulation::PanServoAction>(_nh, "pan_servo", false);
+  	this->_server->start();
+  	
 
   	this->timeInc = 0;
     this->pastTime = 0;
@@ -115,103 +117,99 @@ void GazeboRosServo::Load( physics::ModelPtr _model, sdf::ElementPtr _sdf )
 
   	_jointUpperLimit = this->_servoJoint->GetUpperLimit(0);
   	_jointLowerLimit = this->_servoJoint->GetLowerLimit(0);
+  	_currentAngle = gazebo::math::Angle(0);
 
-  	ROS_INFO_STREAM("Joint Angle: " << this->_servoJoint->GetAngle(0));
+  	//ROS_INFO_STREAM("Joint Angle: " << this->_servoJoint->GetAngle(0));
 
 }
+
+
 
 void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 {
-    common::Time currentTime = _info.simTime;
-	double timeDifference = currentTime.Double()-this->pastTime.Double();
-
-	if (timeDifference < (1/_frequencyUpdate)) 
-		return;
-/*
-	tf::StampedTransform transform;
-
-	try
+	if(this->_server->isNewGoalAvailable())
 	{
-		transform_listener_->lookupTransform(this->_cameraFrameId, this->_robotFrameId, ros::Time(0), transform);
+		boost::shared_ptr<const rmc_simulation::PanServoGoal> goal = this->_server->acceptNewGoal();
+		ROS_INFO("New Goal, not active...");
+		_donePanning = false;
 	}
-	catch (tf::TransformException ex)
-	{
-		ROS_WARN_NAMED("servo_plugin","%s",ex.what());
-		return;
-	}
-*/
-
-	// TODO: dont compare double directly
-	if(!this->_leftLimitReached)
-	{
-		ROS_INFO("LEFT");
-		this->_servoJoint->SetVelocity(0, this->_rotatingVelocity);
-		if(this->_servoJoint->GetAngle(0) == _jointUpperLimit)
-		{
-			ROS_INFO("Left Panning Limit Reached! Rotating otherway...");
-			_leftLimitReached = true;
-			this->_servoJoint->SetVelocity(0, 0); // Temporarily stop applying velocity
-			// Need to set angle to current angle when we reach upper limit, or else when we switch
-			// rotational directions, the joint will jump to it starting angle and then start rotating.
-			this->_servoJoint->SetAngle(0, _jointUpperLimit); 
-		}
-		else
-		{
-			this->_servoJoint->SetAngle(0, this->_servoJoint->GetAngle(0));
-		}
-		ROS_INFO_STREAM("Joint Angle1: " << this->_servoJoint->GetAngle(0));
-		
-	}
-	else if(!this->_rightLimitReached)
-	{
-		//_servoJoint->SetMaxForce(0, -this->_maxForce);
-		ROS_INFO("RIGHT");
-
-		this->_servoJoint->SetVelocity(0, -this->_rotatingVelocity);
-		if(this->_servoJoint->GetAngle(0) == _jointLowerLimit)
-		{
-			ROS_INFO("Right Panning Limit Reached! Did not find marker!");
-			_rightLimitReached = true;	
-			
-			this->_servoJoint->SetVelocity(0, 0);
-
-			ROS_INFO_STREAM("Before Angle: " << this->_servoJoint->GetAngle(0));
-			this->_servoJoint->SetAngle(0, _jointLowerLimit);
-			ROS_INFO_STREAM("After Angle: " << this->_servoJoint->GetAngle(0));
-			//this->_servoJoint->Update();
-
-		}
-		else
-		{
-			this->_servoJoint->SetAngle(0, this->_servoJoint->GetAngle(0));
-		}
-		ROS_INFO_STREAM("Joint Angle2: " << this->_servoJoint->GetAngle(0));
-	}
-	else
-	{
-		this->_servoJoint->SetVelocity(0, this->_rotatingVelocity);
-		ROS_INFO("Vel = +");
-		if(this->_servoJoint->GetAngle(0) > 0)
-		{
-			ROS_INFO("Vel >= 0");
-			ROS_INFO_STREAM("Angle "<< _servoJoint->GetAngle(0));
-			//ROS_INFO("Servo back at 0, waiting for request to pan again...");
-			// TODO: set limitReached bool's to false once state machine performs robot rotation
-			this->_servoJoint->SetVelocity(0, 0.0);	
-			_servoJoint->SetAngle(0, 0.0);
-		}
-		else
-		{
-			//this->_servoJoint->SetVelocity(0, this->_rotatingVelocity);
-			this->_servoJoint->SetAngle(0, this->_servoJoint->GetAngle(0)); // negative velocity
-		}
-	}
-
-	//ROS_INFO_STREAM("After3 Angle: " << this->_servoJoint->GetAngle(0));
-
-	this->pastTime = currentTime;
 	
+	if(!_donePanning)
+	{
+
+	    common::Time currentTime = _info.simTime;
+		double timeDifference = currentTime.Double()-this->pastTime.Double();
+
+	/*
+		if (timeDifference < (1/_frequencyUpdate)) 
+			return;
+
+		tf::StampedTransform transform;
+
+		try
+		{
+			transform_listener_->lookupTransform(this->_cameraFrameId, this->_robotFrameId, ros::Time(0), transform);
+		}
+		catch (tf::TransformException ex)
+		{
+			ROS_WARN_NAMED("servo_plugin","%s",ex.what());
+			return;
+		}
+	*/
+		if(!this->_leftLimitReached)
+		{
+			//ROS_INFO("LEFT");
+			this->_servoJoint->SetAngle(0, (this->_servoJoint->GetAngle(0) + (this->_rotatingVelocity * timeDifference)));
+			if(this->_servoJoint->GetAngle(0) == _jointUpperLimit)
+			{
+				//ROS_INFO("Left Limit Reached...");
+				this->_leftLimitReached = true;
+			}
+		}
+		else if(!this->_rightLimitReached)
+		{
+			//ROS_INFO("RIGHT");
+			this->_servoJoint->SetAngle(0, (this->_servoJoint->GetAngle(0) - (this->_rotatingVelocity * timeDifference)));
+			if(this->_servoJoint->GetAngle(0) == _jointLowerLimit)
+			{
+				//ROS_INFO("Right Limit Reached...");
+				this->_rightLimitReached = true;	
+			}
+		}
+		else
+		{
+			//ROS_INFO("CENTER");
+			this->_servoJoint->SetAngle(0, (this->_servoJoint->GetAngle(0) + (this->_rotatingVelocity * timeDifference)));
+			if(this->_servoJoint->GetAngle(0) > 0)
+			{
+				this->_servoJoint->SetAngle(0, 0);
+				//ROS_INFO("Center Reached...");
+				_donePanning = true;
+				//this->_server->acceptNewGoal();
+			}
+		}
+
+		if (_server->isPreemptRequested())
+		{
+
+		}
+
+		if(_donePanning)
+		{
+			ROS_INFO("Sending succeeded message...");
+			rmc_simulation::PanServoResult result;
+			result.completed_panning = true;
+
+			this->_server->setSucceeded(result);
+		}
+
+		//ROS_INFO_STREAM("After3 Angle: " << this->_servoJoint->GetAngle(0));
+
+		this->pastTime = currentTime;
+		ros::spinOnce();
+	}
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Update the controller

@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(rmc_simulation)
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs std_srvs geometry_msgs tf tf2 dynamic_reconfigure)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs std_srvs geometry_msgs 
+                                        tf tf2 dynamic_reconfigure message_generation
+                                        genmsg)
 include_directories(include ${catkin_INCLUDE_DIRS})
+
+find_package(catkin REQUIRED COMPONENTS actionlib_msgs actionlib)
 
 find_package(gazebo REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
@@ -12,9 +16,13 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 find_package(Boost REQUIRED COMPONENTS thread)
 include_directories(${Boost_INCLUDE_DIRS})
 
+#add BEFORE catkin_package()
+add_action_files(DIRECTORY action FILES PanServo.action)
+generate_messages(DEPENDENCIES actionlib_msgs)
+
 catkin_package(
     DEPENDS gazebo
-    CATKIN_DEPENDS roscpp std_msgs geometry_msgs tf
+    CATKIN_DEPENDS roscpp std_msgs geometry_msgs tf actionlib_msgs
     INCLUDE_DIRS include
     LIBRARIES
 )

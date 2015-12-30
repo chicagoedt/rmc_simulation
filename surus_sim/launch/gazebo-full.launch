@@ -7,6 +7,7 @@
     <arg name="rviz"      default="false" />
     <arg name="rqt"       default="false" />
     <arg name="nav"       default="true" />
+    <arg name="ekf"       default="true" />
 
     <env name="GAZEBO_MODEL_PATH" value="$(find rmc_simulation)"/>
 
@@ -37,22 +38,20 @@
 		type="spawner" respawn="false" output="screen"
 		args="joint1_position_controller joint2_position_controller joint_state_controller"/>
 
-	<include file="$(find rmc_2dnav)/launch/static_transforms.launch" />
+
+    <include file="$(find rmc_2dnav)/launch/static_transforms.launch" />
+
 
     <group if="$(arg nav)">
-		
 	    <!-- <include file="$(find rmc_2dnav)/launch/ar_sys_19cm.launch" /> -->
-		
-	    
 	    <include file="$(find rmc_2dnav)/launch/ekf_localization_1_test.launch" />
 	    <include file="$(find rmc_2dnav)/launch/rtabmap.launch" />
+    </group>
 
-	    <!-- <include file="$(find rmc_2dnav)/launch/control.launch" /> -->
-
+    <group if="$(arg ekf)">
 	    <include file="$(find rmc_2dnav)/launch/navigation.launch">
 			<arg name="odom_topic" value="odometry/filtered_imu_rtab"/>
 	    </include>
-	    
     </group>
 
     <node pkg="rviz" type="rviz" name="rviz" if="$(arg rviz)"/>

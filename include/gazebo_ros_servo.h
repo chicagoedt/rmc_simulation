@@ -6,6 +6,9 @@
 #include <tf/transform_listener.h>
 #include <geometry_msgs/QuaternionStamped.h>
 
+#include <rmc_simulation/PanServoAction.h>
+#include <actionlib/server/simple_action_server.h>
+
 #include <gazebo/physics/physics.hh>
 #include <gazebo/transport/TransportTypes.hh>
 #include <gazebo/common/Time.hh>
@@ -27,7 +30,7 @@ namespace gazebo
       public: virtual ~GazeboRosServo();
 
       /// \brief Load the controller
-      public: void Load( physics::ModelPtr _parent, sdf::ElementPtr _sdf );
+      public:  void Load( physics::ModelPtr _parent, sdf::ElementPtr _sdf );
 
       /// \brief Update the controller
       //protected: virtual void UpdateChild();
@@ -37,7 +40,7 @@ namespace gazebo
       physics::ModelPtr _model;
       event::ConnectionPtr updateConnection;
 
-      ros::NodeHandle* rosnode_;
+      ros::NodeHandle _nh;
       ros::Publisher servoRotationPub_;
       ros::Subscriber sub_;
       tf::TransformBroadcaster *transform_broadcaster_;
@@ -61,9 +64,13 @@ namespace gazebo
 
       gazebo::math::Angle _jointUpperLimit;
       gazebo::math::Angle _jointLowerLimit;
+      gazebo::math::Angle _currentAngle;
 
       bool  _leftLimitReached;
       bool  _rightLimitReached;
+      bool  _donePanning;
+
+      actionlib::SimpleActionServer<rmc_simulation::PanServoAction>* _server;
 
    };
 

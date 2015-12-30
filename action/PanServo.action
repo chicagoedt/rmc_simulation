@@ -1,0 +1,7 @@
+# Define the goal, in our case nothing, but just a trigger
+---
+# Define the result
+bool completed_panning
+---
+# Define a feedback message
+float32 servo_position_feedback
