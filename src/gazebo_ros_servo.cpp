@@ -100,6 +100,8 @@ void GazeboRosServo::Load( physics::ModelPtr _model, sdf::ElementPtr _sdf )
   	transform_listener_ = new tf::TransformListener();
   	transform_listener_->setExtrapolationLimit(ros::Duration(1.0));
 
+  	transform_broadcaster_ = new tf::TransformBroadcaster();
+
   	this->_server = new actionlib::SimpleActionServer<rmc_simulation::PanServoAction>(_nh, "pan_servo", false);
   	this->_server->start();
   	
@@ -134,11 +136,23 @@ void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 		_donePanning = false;
 	}
 	
+	gazebo::math::Pose servoPose = _servoJoint->GetChild()->GetRelativePose();
+
+	tf::Quaternion qt (servoPose.rot.x, servoPose.rot.y, servoPose.rot.z, servoPose.rot.w);
+	tf::Vector3 vt (servoPose.pos.x, servoPose.pos.y, servoPose.pos.z);
+
+	tf::Transform tfWheel ( qt, vt );
+
+	transform_broadcaster_->sendTransform(
+        tf::StampedTransform(tfWheel, ros::Time::now(), "base_link", "blackfly_mount_link"));
+	
 	if(!_donePanning)
 	{
 
 	    common::Time currentTime = _info.simTime;
 		double timeDifference = currentTime.Double()-this->pastTime.Double();
+
+
 
 	/*
 		if (timeDifference < (1/_frequencyUpdate)) 
@@ -191,16 +205,20 @@ void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 
 		if (_server->isPreemptRequested())
 		{
-
+			ROS_INFO("Preemptive Goal requested... Stopping servo rotation.");
+			_server->setPreempted();
+			this->_rightLimitReached = false;
+			this->_leftLimitReached = false;
 		}
-
-		if(_donePanning)
+		else if(_donePanning)
 		{
 			ROS_INFO("Sending succeeded message...");
 			rmc_simulation::PanServoResult result;
 			result.completed_panning = true;
 
 			this->_server->setSucceeded(result);
+			this->_rightLimitReached = false;
+			this->_leftLimitReached = false;
 		}
 
 		//ROS_INFO_STREAM("After3 Angle: " << this->_servoJoint->GetAngle(0));

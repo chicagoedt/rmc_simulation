@@ -1538,7 +1538,7 @@
     <cameraFrameName>blackfly_mount_link</cameraFrameName>
     <robotBaseFrameName>base_link</robotBaseFrameName>
     <cameraJointName>blackfly_mount_joint</cameraJointName>
-    <rotatingVelocity>2.0</rotatingVelocity>
+    <rotatingVelocity>0.4</rotatingVelocity>
     <maxForceNewtonMeters>20</maxForceNewtonMeters>
   </plugin>
 
