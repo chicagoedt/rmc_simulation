@@ -1205,6 +1205,7 @@
       </visual>
       <sensor name='blackfly_camera' type='camera'>
         <update_rate>20</update_rate>
+	<pose>0 0 0 0 0 0</pose>
         <camera name="head">
           <horizontal_fov>1.2217</horizontal_fov>
           <image>
@@ -1249,16 +1250,12 @@
         <limit>
           <lower>-2.618</lower>
           <upper>2.618</upper>
-          <!--
-          <effort>1000</effort>
-          <velocity>10.0</velocity>
-        -->
         </limit>
       </axis>
     </joint>
-<!--
+
     <link name='blackfly_optical_link'>
-      <pose>-0.475 -0.223828 0.541527 0 0 3.14159</pose>
+      <pose>-0.475 -0.223828 0.541527 1.57 3.14159 0</pose>
       <inertial>
         <mass>1e-5</mass>
         <inertia>
@@ -1270,75 +1267,12 @@
           <izz>1e-6</izz>
         </inertia>
       </inertial>
-      <collision name='blackfly_optical_link_collision'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-           <box>
-             <size> 0.025 0.025 0.025 </size>
-           </box>
-        </geometry>
-      </collision>
-      <visual name='blackfly_optical_link_visual'>
-        <pose>0 0 0 0 0 0</pose>
-        <geometry>
-           <box>
-             <size> 0.025 0.025 0.025 </size>
-           </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Red</name>
-          </script>
-        </material>
-      </visual>
-      <velocity_decay>
-         <linear>0</linear>
-         <angular>0</angular>
-      </velocity_decay>
-      <self_collide>0</self_collide>
-
-      <sensor name='blackfly_camera' type='camera'>
-        <update_rate>20</update_rate>
-        <camera name="head">
-          <horizontal_fov>1.2217</horizontal_fov>
-          <image>
-            <width>1624</width>
-            <height>1224</height>
-            <format>R8G8B8</format>
-          </image>
-          <clip>
-            <near>0.01</near>
-            <far>300</far>
-          </clip>
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.000</stddev>
-           </noise>
-          </camera>
-          <pose>0 0 0 0 0 0</pose>
-          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-            <alwaysOn>true</alwaysOn>
-            <updateRate>0.0</updateRate>
-            <cameraName>blackfly</cameraName>
-            <imageTopicName>image_raw</imageTopicName>
-            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-            <frameName>blackfly_mount_link</frameName>
-            <hackBaseline>0.07</hackBaseline>
-            <distortionK1>0.0</distortionK1>
-            <distortionK2>0.0</distortionK2>
-            <distortionK3>0.0</distortionK3>
-            <distortionT1>0.0</distortionT1>
-            <distortionT2>0.0</distortionT2>
-          </plugin>
-      </sensor>
     </link>
 
     <joint name="blackfly_optical_joint" type="revolute">
       <parent>blackfly_mount_link</parent>
       <child>blackfly_optical_link</child>
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0 0 0 1.57 3.14159 0</pose>
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
@@ -1347,7 +1281,6 @@
         </limit>
       </axis>
     </joint>
--->
 <!-- end of blackfly camera -->
 
 
@@ -1527,15 +1460,15 @@
     <topicName>odometry/ground_truth</topicName>
     <updateRate>30.0</updateRate>
   </plugin>
-
+<!--
   <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
 	 <robotNamespace>/</robotNamespace>
 	 <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
   </plugin>
-
+-->
   <plugin name="gazebo_ros_servo" filename="libgazebo_ros_servo.so">
     <updateRate>30</updateRate>
-    <cameraFrameName>blackfly_mount_link</cameraFrameName>
+    <cameraFrameName>blackfly_optical_link</cameraFrameName>
     <robotBaseFrameName>base_link</robotBaseFrameName>
     <cameraJointName>blackfly_mount_joint</cameraJointName>
     <rotatingVelocity>0.4</rotatingVelocity>

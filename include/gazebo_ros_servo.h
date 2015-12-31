@@ -47,6 +47,7 @@ namespace gazebo
       tf::TransformListener* transform_listener_;
 
       physics::JointPtr _servoJoint;
+      physics::JointPtr _cameraJoint;
 
       common::Time pastTime;
       double timeInc;
