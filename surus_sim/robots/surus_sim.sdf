@@ -1169,7 +1169,7 @@
 <!-- end of blackfly camera -->
 
     <link name='blackfly_mount_link'>
-      <pose>-0.45 -0.223828 0.541527 0 0 3.14159</pose>
+      <pose>-0.45 -0.223828 0.64 0 0 3.14159</pose>
       <inertial>
         <mass>1e-5</mass>
         <inertia>
@@ -1255,7 +1255,7 @@
     </joint>
 
     <link name='blackfly_optical_link'>
-      <pose>-0.475 -0.223828 0.541527 1.57 3.14159 0</pose>
+      <pose>-0.475 -0.223828 0.64 0 0 0</pose>
       <inertial>
         <mass>1e-5</mass>
         <inertia>
@@ -1272,7 +1272,7 @@
     <joint name="blackfly_optical_joint" type="revolute">
       <parent>blackfly_mount_link</parent>
       <child>blackfly_optical_link</child>
-      <pose>0 0 0 1.57 3.14159 0</pose>
+      <pose>0 0 0 0 0 0</pose>
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
@@ -1468,10 +1468,10 @@
 -->
   <plugin name="gazebo_ros_servo" filename="libgazebo_ros_servo.so">
     <updateRate>30</updateRate>
-    <cameraFrameName>blackfly_optical_link</cameraFrameName>
+    <cameraFrameName>blackfly_mount_link</cameraFrameName>
     <robotBaseFrameName>base_link</robotBaseFrameName>
     <cameraJointName>blackfly_mount_joint</cameraJointName>
-    <rotatingVelocity>0.4</rotatingVelocity>
+    <rotatingVelocity>3.0</rotatingVelocity>
     <maxForceNewtonMeters>20</maxForceNewtonMeters>
   </plugin>
 
