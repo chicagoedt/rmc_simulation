@@ -8,7 +8,11 @@ GZ_REGISTER_MODEL_PLUGIN(GazeboRosServo);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constructor
-GazeboRosServo::GazeboRosServo(): _leftLimitReached(false), _rightLimitReached(false), _donePanning(true)
+GazeboRosServo::GazeboRosServo(): 
+	_leftLimitReached(false), 
+	_rightLimitReached(false), 
+	_donePanning(true), 
+	_gotArucoPose(false)
 {
 }
 
@@ -19,7 +23,7 @@ GazeboRosServo::~GazeboRosServo()
 	if(transform_listener_)
 		delete transform_listener_;
 
-	this->_server->shutdown();
+	//this->_server->shutdown();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,11 +98,12 @@ void GazeboRosServo::Load( physics::ModelPtr _model, sdf::ElementPtr _sdf )
 		this->_maxForce = _sdf->GetElement("maxForceNewtonMeters")->Get<double>();
     }
 
-
   	//this->_nh = new ros::NodeHandle();
 
   	transform_listener_ = new tf::TransformListener();
   	transform_listener_->setExtrapolationLimit(ros::Duration(1.0));
+
+  	sub_ = _nh.subscribe("ar_single_board/pose", 1, &GazeboRosServo::poseCallback, this);
 
   	transform_broadcaster_ = new tf::TransformBroadcaster();
 
@@ -129,16 +134,25 @@ void GazeboRosServo::Load( physics::ModelPtr _model, sdf::ElementPtr _sdf )
 
 
 
+void GazeboRosServo::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& poseMsg)
+{
+	_donePanning = true;
+	_gotArucoPose = true;
+}
+
+
+
 void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 {
-	if(this->_server->isNewGoalAvailable())
+
+	if(this->_server->isNewGoalAvailable() && !_gotArucoPose)
 	{
 		boost::shared_ptr<const rmc_simulation::PanServoGoal> goal = this->_server->acceptNewGoal();
 		ROS_INFO("New Goal, not active...");
 		_donePanning = false;
 	}
 	
-	gazebo::math::Pose servoPose = this->_servoJoint->GetChild()->GetRelativePose();
+	gazebo::math::Pose servoPose = this->_cameraJoint->GetChild()->GetRelativePose();
 
 	tf::Quaternion servoYaw(servoPose.rot.x, servoPose.rot.y, servoPose.rot.z, servoPose.rot.w);
 	tf::Vector3 servoXYZ (servoPose.pos.x, servoPose.pos.y, servoPose.pos.z);
@@ -151,15 +165,13 @@ void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 	tf::Transform tfWheel(servoYaw, servoXYZ);
 
 	transform_broadcaster_->sendTransform(
-        tf::StampedTransform(tfWheel, ros::Time::now(), "base_link", _cameraFrameId));
+        tf::StampedTransform(tfWheel, ros::Time::now(), "base_link", "blackfly_optical_link"));
 	
-	if(!_donePanning)
+	if(!_donePanning) 
 	{
 
 	    common::Time currentTime = _info.simTime;
 		double timeDifference = currentTime.Double()-this->pastTime.Double();
-
-
 
 	/*
 		if (timeDifference < (1/_frequencyUpdate)) 
@@ -210,6 +222,7 @@ void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 			}
 		}
 
+
 		if (_server->isPreemptRequested())
 		{
 			ROS_INFO("Preemptive Goal requested... Stopping servo rotation.");
@@ -233,6 +246,25 @@ void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 		this->pastTime = currentTime;
 		ros::spinOnce();
 	}
+
+	tf::StampedTransform arOffsetTransform;
+
+    try
+    {
+		transform_listener_->lookupTransform("base_link","ar_board_marker", ros::Time(0), arOffsetTransform);
+
+
+		tf::Transform blToArucoTF(arOffsetTransform.getRotation(), arOffsetTransform.getOrigin());
+		tf::StampedTransform stampedBlToArucoTF(blToArucoTF.inverse(), ros::Time(0), "arena", "odom");
+		transform_broadcaster_->sendTransform(stampedBlToArucoTF);
+    }
+    catch (tf::TransformException ex)
+    {
+		//ROS_ERROR("%s",ex.what());
+		//ros::Duration(1.0).sleep();
+    }
+
+
 }
 
 

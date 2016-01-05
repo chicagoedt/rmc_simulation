@@ -5,6 +5,7 @@
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
 #include <geometry_msgs/QuaternionStamped.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 #include <rmc_simulation/PanServoAction.h>
 #include <actionlib/server/simple_action_server.h>
@@ -35,6 +36,8 @@ namespace gazebo
       /// \brief Update the controller
       //protected: virtual void UpdateChild();
       public:  void OnUpdate(const common::UpdateInfo & _info);
+
+      private: void poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& poseMsg);
 
    private:
       physics::ModelPtr _model;
@@ -70,6 +73,8 @@ namespace gazebo
       bool  _leftLimitReached;
       bool  _rightLimitReached;
       bool  _donePanning;
+
+      bool _gotArucoPose;
 
       actionlib::SimpleActionServer<rmc_simulation::PanServoAction>* _server;
 
