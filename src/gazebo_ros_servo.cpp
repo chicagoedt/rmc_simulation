@@ -247,23 +247,6 @@ void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 		ros::spinOnce();
 	}
 
-	tf::StampedTransform arOffsetTransform;
-
-    try
-    {
-		transform_listener_->lookupTransform("base_link","ar_board_marker", ros::Time(0), arOffsetTransform);
-
-
-		tf::Transform blToArucoTF(arOffsetTransform.getRotation(), arOffsetTransform.getOrigin());
-		tf::StampedTransform stampedBlToArucoTF(blToArucoTF.inverse(), ros::Time(0), "arena", "odom");
-		transform_broadcaster_->sendTransform(stampedBlToArucoTF);
-    }
-    catch (tf::TransformException ex)
-    {
-		//ROS_ERROR("%s",ex.what());
-		//ros::Duration(1.0).sleep();
-    }
-
 
 }
 
