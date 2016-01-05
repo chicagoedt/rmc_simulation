@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(rmc_simulation)
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs std_srvs geometry_msgs 
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs std_srvs geometry_msgs 
                                         tf tf2 dynamic_reconfigure message_generation
                                         genmsg)
 include_directories(include ${catkin_INCLUDE_DIRS})
@@ -22,7 +22,7 @@ generate_messages(DEPENDENCIES actionlib_msgs)
 
 catkin_package(
     DEPENDS gazebo
-    CATKIN_DEPENDS roscpp std_msgs geometry_msgs tf actionlib_msgs
+    CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs tf actionlib_msgs
     INCLUDE_DIRS include
     LIBRARIES
 )

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #Python script for randomly spawning surus_sim
 
 import subprocess

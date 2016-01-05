@@ -22,41 +22,36 @@
 
     <param name="robot_description" textfile="$(find rmc_simulation)/surus_sim/robots/surus_sim.URDF" />
     <param name="robot_description_sdf" textfile="$(find rmc_simulation)/surus_sim/robots/surus_sim.sdf" />
-    <!-- REMOVE THIS COMMENT
+<!-- REMOVE THIS COMMENT
     <node
       name="spawn_model"
       pkg="gazebo_ros"
       type="spawn_model"
-      args="-sdf -param robot_description_sdf -model surus_sim -x 0 -z 0.3"
-      output="screen">
-    </node> -->
-    <node
-      name="spawn_model"
-      pkg="gazebo_ros"
-      type="spawn_model"
-      args="-sdf -param robot_description_sdf -model surus_sim -x 0.46 -y 1.122 -z 0.13 -Y -1.567"
+      args="-sdf -param robot_description_sdf -model surus_sim -x 0 -y 0.6 -z 0.3"
       output="screen">
     </node>
+-->
 
+    <node name="random_spawn_model" pkg="rmc_simulation" type="random_spawn.py" output="screen"/>
 
+<!--
     <rosparam file="$(find rmc_simulation)/gazebo_config/control/surus_control.yaml" command="load"/>
 
 	<node name="controller_spawner" 
 		pkg="controller_manager" 
 		type="spawner" respawn="false" output="screen"
 		args="joint1_position_controller joint2_position_controller joint_state_controller"/>
-
+-->
 
     <include file="$(find rmc_2dnav)/launch/static_transforms.launch" />
 
-
-    <group if="$(arg nav)">
+    <group if="$(arg ekf)">
 	    <include file="$(find rmc_2dnav)/launch/ar_sys_19cm.launch" />
 	    <include file="$(find rmc_2dnav)/launch/ekf_localization_1_test.launch" />
 	    <include file="$(find rmc_2dnav)/launch/rtabmap.launch" />
     </group>
 
-    <group if="$(arg ekf)">
+    <group if="$(arg nav)">
 	    <include file="$(find rmc_2dnav)/launch/navigation.launch">
 			<arg name="odom_topic" value="odometry/filtered_imu_rtab"/>
 	    </include>
@@ -64,5 +59,7 @@
 
     <node pkg="rviz" type="rviz" name="rviz" if="$(arg rviz)"/>
     <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" if="$(arg rqt)"/>
+
+    <include file="$(find state_machine)/launch/state_machine.launch" />
 </launch>
 
