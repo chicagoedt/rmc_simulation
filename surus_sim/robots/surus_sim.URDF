@@ -3,27 +3,13 @@
   name="surus_sim">
   <link
     name="base_link">
-    <inertial>
-      <origin
-        xyz="-0.167968408500371 -1.01022281727703E-05 0.286322180976302"
-        rpy="0 0 0" />
-      <mass
-        value="4.66238075193942" />
-      <inertia
-        ixx="0.231100945265056"
-        ixy="5.93061079906879E-07"
-        ixz="-0.0455736904611633"
-        iyy="0.237209604995113"
-        iyz="-3.48066671364885E-07"
-        izz="0.292610789105543" />
-    </inertial>
     <visual>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="0 0 -1.57" />
       <geometry>
         <mesh
-          filename="package://rmc_simulation/surus_sim/meshes/base_link.STL" />
+          filename="package://rmc_simulation/surus_sim/meshes/visual_meshes/base_link/base_link.DAE" />
       </geometry>
       <material
         name="">
@@ -31,17 +17,8 @@
           rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://rmc_simulation/surus_sim/meshes/base_link.STL" />
-      </geometry>
-    </collision>
   </link>
-
+<!--
   <link
     name="rear_rocker_link">
     <inertial>
@@ -999,7 +976,7 @@
       link="left_bot_actuator_link" />
     <axis
       xyz="-1 0 0" />
-    <!-- <limit effort="100.0" lower="0" upper="0.4572" velocity="0.1"/> -->
+    ##<limit effort="100.0" lower="0" upper="0.4572" velocity="0.1"/>##
     <limit effort="100.0" lower="0" upper="1.4" velocity="0.2"/>
   </joint>
 
@@ -1130,7 +1107,132 @@
       link="right_bot_actuator_link" />
     <axis
       xyz="-1 0 0" />
-    <!-- <limit effort="100.0" lower="0" upper="0.4572" velocity="0.1"/> -->
     <limit effort="100.0" lower="0" upper="1.4" velocity="0.2"/>
   </joint>
+-->
+<link
+  name="servo_mount_link">
+  <inertial>
+    <mass
+      value="1e5" />
+    <inertia
+      ixx="1e-6"
+      ixy="0"
+      ixz="0"
+      iyy="1e-6"
+      iyz="0"
+      izz="1e-6" />
+  </inertial>
+</link>
+<joint
+  name="servo_mount_joint"
+  type="fixed">
+  <origin
+    xyz="-0.30 -0.40 0.4191"
+    rpy="0 0 0" />
+  <parent
+    link="base_link" />
+  <child
+    link="servo_mount_link" />
+  <axis
+    xyz="0 0 1" />
+</joint>
+
+
+  <link
+    name="blackfly_mount_link">
+    <inertial>
+      <mass
+        value="1e5" />
+      <inertia
+        ixx="1e-6"
+        ixy="0"
+        ixz="0"
+        iyy="1e-6"
+        iyz="0"
+        izz="1e-6" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material
+        name="Black">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="blackfly_mount_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0.051"
+      rpy="0 0 3.14159" />
+    <parent
+      link="servo_mount_link" />
+    <child
+      link="blackfly_mount_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <link
+    name="blackfly_optical_link">
+  </link>
+  <joint
+    name="blackfly_optical_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="-1.57 0 -1.57" />
+    <parent
+      link="blackfly_mount_link" />
+    <child
+      link="blackfly_optical_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+
+
+  <link
+    name="imu">
+    <inertial>
+      <mass
+        value="1e5" />
+      <inertia
+        ixx="1e-6"
+        ixy="0"
+        ixz="0"
+        iyy="1e-6"
+        iyz="0"
+        izz="1e-6" />
+    </inertial>
+  </link>
+  <joint
+    name="imu_joint"
+    type="fixed">
+    <origin
+      xyz="0.1 -0.3 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="imu" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
 </robot>
