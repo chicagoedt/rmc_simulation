@@ -1129,7 +1129,7 @@
   type="fixed">
   <origin
     xyz="-0.30 -0.40 0.4191"
-    rpy="0 0 0" />
+    rpy="0 0 3.14159" />
   <parent
     link="base_link" />
   <child
@@ -1179,7 +1179,7 @@
     type="continuous">
     <origin
       xyz="0 0 0.051"
-      rpy="0 0 -1.57" />
+      rpy="0 0 0" />
     <parent
       link="servo_mount_link" />
     <child

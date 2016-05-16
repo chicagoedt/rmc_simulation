@@ -122,7 +122,7 @@ void GazeboRosServo::Load( physics::ModelPtr _model, sdf::ElementPtr _sdf )
   	this->_servoJoint = this->_model->GetJoint(this->_cameraJointName);
   	this->_servoJoint->SetMaxForce(0, this->_maxForce);
 
-  	this->_cameraJoint = this->_model->GetJoint("blackfly_optical_joint");
+  	this->_cameraJoint = this->_model->GetJoint("blackfly_mount_joint");
 
   	_jointUpperLimit = this->_servoJoint->GetUpperLimit(0);
   	_jointLowerLimit = this->_servoJoint->GetLowerLimit(0);
@@ -152,10 +152,11 @@ void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 		_donePanning = false;
 	}
 	
-	gazebo::math::Pose servoPose = this->_cameraJoint->GetChild()->GetRelativePose();
+	gazebo::math::Pose servoPose = this->_cameraJoint->GetParent()->GetRelativePose();
 
 	tf::Quaternion servoYaw(servoPose.rot.x, servoPose.rot.y, servoPose.rot.z, servoPose.rot.w);
-	tf::Vector3 servoXYZ (servoPose.pos.x, servoPose.pos.y, servoPose.pos.z);
+	//tf::Vector3 servoXYZ (servoPose.pos.x, servoPose.pos.y, servoPose.pos.z);
+	tf::Vector3 servoXYZ (0, 0, 0);
 
 	//tf::Quaternion cameraOpticalRotation;
 	//cameraOpticalRotation.setRPY(0, 1.57, 1.57);
@@ -164,8 +165,13 @@ void GazeboRosServo::OnUpdate(const common::UpdateInfo & _info)
 
 	tf::Transform tfWheel(servoYaw, servoXYZ);
 
+/*
 	transform_broadcaster_->sendTransform(
         tf::StampedTransform(tfWheel, ros::Time::now(), "base_link", "blackfly_optical_link"));
+ */
+
+	transform_broadcaster_->sendTransform(
+        tf::StampedTransform(tfWheel, ros::Time::now(), "servo_mount_link", "blackfly_mount_link"));
 	
 	if(!_donePanning) 
 	{

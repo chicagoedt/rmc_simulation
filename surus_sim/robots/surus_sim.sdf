@@ -1420,7 +1420,7 @@
         </camera>
         <pose>0 0 0 0 0 -1.57</pose>
         <plugin name="kinect_camera_controller" filename="libgazebo_ros_openni_kinect.so">
-          <cameraName>camera</cameraName>
+          <cameraName>kinect</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>20</updateRate>
           <imageTopicName>rgb/image_rect_color</imageTopicName>
@@ -1430,7 +1430,7 @@
           <depthImageCameraInfoTopicName>depth_registered/camera_info</depthImageCameraInfoTopicName>
           <pointCloudCutoff>0.4</pointCloudCutoff>
           <pointCloudCutoffMax>5.0</pointCloudCutoffMax>
-          <frameName>camera_link</frameName>
+          <frameName>kinect_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>
@@ -1454,18 +1454,21 @@
       </axis>
     </joint>
 
+<!-- Plugins -->  
+
   <plugin name="ground_truth" filename="libgazebo_ros_p3d.so">
     <frameName>world</frameName>
     <bodyName>base_link</bodyName>
     <topicName>odometry/ground_truth</topicName>
     <updateRate>30.0</updateRate>
   </plugin>
-<!--
+
   <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
 	 <robotNamespace>/</robotNamespace>
 	 <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
   </plugin>
--->
+
+
   <plugin name="gazebo_ros_servo" filename="libgazebo_ros_servo.so">
     <updateRate>30</updateRate>
     <cameraFrameName>blackfly_mount_link</cameraFrameName>
@@ -1474,6 +1477,7 @@
     <rotatingVelocity>3.0</rotatingVelocity>
     <maxForceNewtonMeters>20</maxForceNewtonMeters>
   </plugin>
+
 
 </model>
 </sdf>

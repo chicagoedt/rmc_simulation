@@ -22,44 +22,46 @@
 
     <param name="robot_description" textfile="$(find rmc_simulation)/surus_sim/robots/surus_sim.URDF" />
     <param name="robot_description_sdf" textfile="$(find rmc_simulation)/surus_sim/robots/surus_sim.sdf" />
-<!-- REMOVE THIS COMMENT
+
     <node
       name="spawn_model"
       pkg="gazebo_ros"
       type="spawn_model"
-      args="-sdf -param robot_description_sdf -model surus_sim -x 0 -y 0.6 -z 0.3"
+      args="-sdf -param robot_description_sdf -model surus_sim -x 0.583653463795 -y 0.2347091429 -z 0.28 -Y 0"
       output="screen">
     </node>
--->
 
-    <node name="random_spawn_model" pkg="rmc_simulation" type="random_spawn.py" output="screen"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+
+    <!-- <node name="random_spawn_model" pkg="rmc_simulation" type="random_spawn.py" output="screen"/> -->
 
 <!--
     <rosparam file="$(find rmc_simulation)/gazebo_config/control/surus_control.yaml" command="load"/>
 
-	<node name="controller_spawner" 
-		pkg="controller_manager" 
-		type="spawner" respawn="false" output="screen"
-		args="joint1_position_controller joint2_position_controller joint_state_controller"/>
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint1_position_controller joint2_position_controller joint_state_controller"/>
 -->
 
     <include file="$(find rmc_2dnav)/launch/static_transforms.launch" />
+    <include file="$(find rgbd_launch)/launch/kinect_frames.launch">
+      <arg name="camera" value="kinect" />
+    </include>
 
     <group if="$(arg ekf)">
 	    <include file="$(find rmc_2dnav)/launch/ar_sys_19cm.launch" />
-	    <include file="$(find rmc_2dnav)/launch/ekf_localization_1_test.launch" />
-	    <include file="$(find rmc_2dnav)/launch/rtabmap.launch" />
+	    <!-- <include file="$(find rmc_2dnav)/launch/ekf_localization_1_test.launch" /> -->
+	    <include file="$(find rmc_2dnav)/launch/rtabmap-with-odom-tf.launch" />
     </group>
 
     <group if="$(arg nav)">
 	    <include file="$(find rmc_2dnav)/launch/navigation.launch">
-			<arg name="odom_topic" value="odometry/filtered_imu_rtab"/>
+			<!-- <arg name="odom_topic" value="odometry/filtered_imu_rtab"/> -->
 	    </include>
     </group>
 
     <node pkg="rviz" type="rviz" name="rviz" if="$(arg rviz)"/>
     <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" if="$(arg rqt)"/>
-
+<!--
     <include file="$(find state_machine)/launch/state_machine.launch" />
+-->
 </launch>
 
