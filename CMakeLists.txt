@@ -31,6 +31,7 @@ catkin_package(
 add_library(gazebo_ros_servo src/gazebo_ros_servo.cpp)
 target_link_libraries(gazebo_ros_servo ${Boost_LIBRARIES} ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES})
 
+add_dependencies(gazebo_ros_servo rmc_simulation_generate_messages_cpp)
 
 install(DIRECTORY include/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
